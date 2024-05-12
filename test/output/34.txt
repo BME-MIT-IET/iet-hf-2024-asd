@@ -1,0 +1,14 @@
+WaterSource v1 pi1,pi3 5
+Cistern ci1 pi2,pi1_NewPump 4,pi1_ci1,pu1_ci1
+Pump NewPump pi4,pi1_NewPump true,0,0,-,-
+Pump pu1 pi1,pi2,pi5 true,2,2,pi2,pi1
+Pump pu2 pi3,pi4,pi5 true,2,3,pi4,pi3
+Pipe pi1_NewPump NewPump,ci1 false,false,false
+Pipe pi1 v1,pu1 false,false,false
+Pipe pi2 pu1,ci1 false,true,false
+Pipe pi3 v1,pu2 false,false,false
+Pipe pi4 pu2,NewPump false,false,false
+Pipe pi5 pu2,pu1 false,false,false
+MechanicCharacter mc1 pi4
+MechanicCharacter mc2 ci1
+SaboteurCharacter sc1 pi5

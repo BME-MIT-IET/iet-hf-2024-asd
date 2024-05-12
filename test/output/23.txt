@@ -1,0 +1,5 @@
+Pump pu1 - false,0,0,-,-
+Pump pu2 - false,0,0,-,-
+Pipe pi1 - false,false,false
+MechanicCharacter mc1 pu1 pi1,-
+MechanicCharacter mc2 pu2 pi1,-

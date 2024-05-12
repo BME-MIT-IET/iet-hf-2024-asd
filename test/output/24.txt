@@ -1,0 +1,6 @@
+Pump newPump pi1,pi1_newPump true,0,0,-,-
+Pump pu1 pi1_newPump false,0,0,-,-
+Pump pu2 pi1 false,0,0,-,pi1
+Pipe pi1 pu2,newPump false,false,false
+Pipe pi1_newPump pu1,newPump false,false,false
+MechanicCharacter mc1 pi1 -,-

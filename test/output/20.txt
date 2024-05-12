@@ -1,0 +1,3 @@
+Cistern ci1 newPipe 0,-,-
+Pipe newPipe ci1 false,false,false
+MechanicCharacter mc1 ci1 newPipe,-

@@ -1,0 +1,4 @@
+Cistern ci1 - 0,newPipe,-
+MechanicCharacter mc1 ci1
+—
+n

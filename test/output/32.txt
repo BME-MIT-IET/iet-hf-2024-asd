@@ -1,0 +1,4 @@
+WaterSource ws1 pi1 1
+Pump pu1 pi1  true,0,1,-,pi1
+Pipe pi1 ws1,pu1 false,false,false
+MechanicCharacter mc1 pu1

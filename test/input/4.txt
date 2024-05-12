@@ -1,0 +1,6 @@
+Cistern ci1 pi1
+Pump pu1 pi1 false,0,0,pi1,-
+Pipe pi1 ci1,pu1 false,false,false
+MechanicCharacter mc1 ci1
+—
+m pi1

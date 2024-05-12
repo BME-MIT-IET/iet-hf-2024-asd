@@ -1,0 +1,6 @@
+Cistern ci1
+MechanicCharacter mc1 ci1
+—
+x
+x
+x

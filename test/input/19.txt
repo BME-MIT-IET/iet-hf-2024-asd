@@ -1,0 +1,4 @@
+Cistern ci1 - 0,-,newPump
+MechanicCharacter mc1 ci1
+—
+b

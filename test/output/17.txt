@@ -1,0 +1,2 @@
+Pump pu1 - true,0,0,-,-
+MechanicCharacter mc1 pu1
