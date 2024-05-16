@@ -50,9 +50,25 @@ public class SaboteurCharacter extends Character {
         String fieldName = this.getField() == null ? "-" : this.getField().getName();
         String pickedPipeName = this.pickedPipe == null ? "-" : this.pickedPipe.getName();
 
-        return "SaboteurCharacter"
+        return "SaboteurCharacter\n"
                 + "\tName: " + this.getName() + "\n"
                 + "\tField: " + fieldName + "\n"
-                + "\tPipe: "+ pickedPipeName+ "\n";
+                + "\tPipe in hand: "+ pickedPipeName+ "\n";
+    }
+
+    public boolean fix() {
+        return false;
+    }
+
+    public boolean pickupPump() {
+        return false;
+    }
+
+    public boolean placePumpToPipe() {
+        return false;
+    }
+
+    public boolean pickupNewPipe_mc() {
+        return false;
     }
 }

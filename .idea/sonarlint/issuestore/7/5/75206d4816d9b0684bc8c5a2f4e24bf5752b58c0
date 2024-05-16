@@ -1,10 +1,10 @@
 
-•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“J$e1452ba0-5526-4883-8c60-71549e28963e
-u
-java:S5993 "9Change the visibility of this constructor to "protected".(ï·Ù€J$eb37d99d-3d6a-49fd-b1dd-135a6b330657
-z
-java:S5993("9Change the visibility of this constructor to "protected".(€”’ëüÿÿÿÿJ$aef21b56-7141-4031-b92a-e9cf6c7b003f
-u
-java:S59933"9Change the visibility of this constructor to "protected".(æ‡§‹J$0dbc242a-1eb0-4f4e-a183-3b8afb013f38
-	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ¨ıÇùÿÿÿÿJ$934ae09d-71a7-411b-9ec8-cd5dc4a82e0e
-	java:S100¡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í÷øĞıÿÿÿÿJ$a894d506-5880-45e0-a37b-eaf5fa39a2ce
+œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“8€¸„”ø1J$c1f79936-3bf4-445d-8614-5a6f4011a302
+|
+java:S5993 "9Change the visibility of this constructor to "protected".(ï·Ù€8¸„”ø1J$39d81cac-10fd-4132-8544-d19e539fd236
+
+java:S5993("9Change the visibility of this constructor to "protected".(€”’ëüÿÿÿÿ8¸„”ø1J$b82724ce-22a9-4a0a-a8b0-984199359cae
+|
+java:S59933"9Change the visibility of this constructor to "protected".(æ‡§‹8¸„”ø1J$0bd9f3f8-089f-403a-9f74-659776d6c597
+–	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ¨ıÇùÿÿÿÿ8•¸„”ø1J$32a8098c-e614-4a41-930e-4adcfc7692ee
+‘	java:S100š"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Èå¿ş8œ¸„”ø1J$fb8d6d9a-c140-4029-b399-dee67da19229

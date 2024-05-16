@@ -177,7 +177,7 @@ public abstract class Character implements Nameable, Comparable<Character> {
      *
      * @param p a pumpa
      */
-    public boolean recievePipe(Pipe p) {
+    public boolean receivePipe(Pipe p) {
         if (this.pickedPipe == null) {
             this.pickedPipe = p;
             return true;
@@ -266,27 +266,18 @@ public abstract class Character implements Nameable, Comparable<Character> {
         }
     }
 
-    public boolean fix() {
-        return false;
-    }
-
-    public boolean pickupPump() {
-        return false;
-    }
-
-    public boolean placePumpToPipe() {
-        return false;
-    }
-
-    public boolean makeSlippery() {
-        return false;
-    }
-
     public int getStuck() {
         return stuck;
     }
 
-    public boolean pickupNewPipe_mc() {
-        return false;
-    }
+    public abstract boolean fix();
+
+    public abstract boolean pickupPump();
+
+    public abstract boolean placePumpToPipe();
+
+    public abstract boolean makeSlippery();
+
+
+    public abstract boolean pickupNewPipe_mc();
 }

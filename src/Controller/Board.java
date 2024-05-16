@@ -366,11 +366,11 @@ public class Board {
                         String pickedPumpName = states[1];
                         if (!pickedPipeName.equals("null") && !pickedPipeName.equals("-")) {
                             Pipe pickedPipe = pipes.get(pickedPipeName);
-                            mechanicCharacter.recievePipe(pickedPipe);
+                            mechanicCharacter.receivePipe(pickedPipe);
                         }
                         if (!pickedPumpName.equals("null") && !pickedPumpName.equals("-")) {
                             Pump pickedPump = pumps.get(pickedPumpName) == null ? new Pump(pickedPumpName, this) : pumps.get(pickedPumpName);
-                            mechanicCharacter.recievePump(pickedPump);
+                            mechanicCharacter.receivePump(pickedPump);
                         }
                     }
                 }
@@ -389,7 +389,7 @@ public class Board {
                         String pickedPipeName = states[0];
                         if (!pickedPipeName.equals("null") && !pickedPipeName.equals("-")) {
                             Pipe pickedPipe = pipes.get(pickedPipeName);
-                            saboteurCharacter.recievePipe(pickedPipe);
+                            saboteurCharacter.receivePipe(pickedPipe);
                         }
                     }
                 }

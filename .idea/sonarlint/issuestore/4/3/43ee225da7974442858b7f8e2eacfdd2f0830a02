@@ -1,0 +1,18 @@
+
+‹
+java:S1319W"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ö˜ºØÿÿÿÿÿ
+g	java:S117Ÿ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»Á¼›
+g	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(»Õáù
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
+P
+java:S1161":Add the "@Override" annotation above this method signature(õû“·
+Q
+java:S1161…":Add the "@Override" annotation above this method signature(Êö±ã
+T
+java:S1155£">Use isEmpty() to check whether the collection is empty or not.(ê®ü]
+:
+java:S2119¼"Save and re-use this "Random".(šŸ«íøÿÿÿÿ
+Z
+java:S1155ž">Use isEmpty() to check whether the collection is empty or not.(­€–áüÿÿÿÿ
+j
+java:S2975­"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(¯áÑë

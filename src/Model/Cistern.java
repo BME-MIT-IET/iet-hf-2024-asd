@@ -156,7 +156,7 @@ public class Cistern extends Field implements Attachable {
         int index = number - 1;
         if (index >= 0 && index < pipes.size()) {
             // Try to add the pipe to the character
-            boolean success = c.recievePipe(pipes.get(index));
+            boolean success = c.receivePipe(pipes.get(index));
             // If it was successful, deattach the pipe from the cistern
             if (success) this.deattachPipe(pipes.get(index));
             return success;
@@ -173,7 +173,7 @@ public class Cistern extends Field implements Attachable {
     public boolean pickupNewPipe(MechanicCharacter mc) {
         if (newPipe != null) {
             // Try to add the pipe to the character
-            boolean success = mc.recievePipe(newPipe);
+            boolean success = mc.receivePipe(newPipe);
             // If it was successful
             if (success) {
                 // Attach the pipe to the cistern
@@ -197,7 +197,7 @@ public class Cistern extends Field implements Attachable {
     public boolean pickupPump(MechanicCharacter mc) {
         if (newPump != null) {
             // Try to add the pump to the character
-            boolean success = mc.recievePump(newPump);
+            boolean success = mc.receivePump(newPump);
             // If it was successful, remove the pump from the cistern
             if (success) this.newPump = null;
             return success;
