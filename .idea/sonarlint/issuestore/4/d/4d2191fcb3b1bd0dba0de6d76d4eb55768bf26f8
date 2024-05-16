@@ -1,4 +1,4 @@
 
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-P
-java:S1161,":Add the "@Override" annotation above this method signature(›Îí¬
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“J$ac956716-cb07-4f7a-af86-71dbeac035e5
+v
+java:S1161,":Add the "@Override" annotation above this method signature(›Îí¬J$c46f50cb-a92a-4beb-ad43-6bcdca393076

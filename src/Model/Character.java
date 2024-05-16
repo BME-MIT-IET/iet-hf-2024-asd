@@ -251,10 +251,7 @@ public abstract class Character implements Nameable, Comparable<Character> {
      * @return a karakter adatai
      */
     @Override
-    public String toString() {
-        // TODO
-        return "";
-    }
+    public abstract String toString();
 
 
     public int compareTo(Character that) {

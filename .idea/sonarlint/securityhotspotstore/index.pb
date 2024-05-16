@@ -13,3 +13,5 @@ P
  src/Model/MechanicCharacter.java,9\1\9157da2e103460a4f7f035e1e4c0719bc756bc38
 P
  src/Model/SaboteurCharacter.java,4\d\4d2191fcb3b1bd0dba0de6d76d4eb55768bf26f8
+G
+test/PrototypeTest.java,a\1\a1380078206a43a9597d2bfab0246d3eb275b790

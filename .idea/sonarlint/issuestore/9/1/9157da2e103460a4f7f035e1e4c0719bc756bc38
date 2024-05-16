@@ -1,14 +1,14 @@
 
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-A
-java:S2160"+Override the "equals" method in this class.(„©Ô´
-g
-java:S1206‡"PThis class overrides "hashCode()" and should therefore also override "equals()".(ğÜşŠ
-U
-java:S11614":Add the "@Override" annotation above this method signature(¾ÍĞ–üÿÿÿÿ
-P
-java:S1161=":Add the "@Override" annotation above this method signature(¾ÊØô
-U
-java:S1161P":Add the "@Override" annotation above this method signature(¶øßøÿÿÿÿ
-U
-java:S1161k":Add the "@Override" annotation above this method signature(Í÷øĞıÿÿÿÿ
+œ	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“8øÄÈ’ø1J$a519f6af-089e-4d21-9f9f-7b751c38529f
+n
+java:S2160"+Override the "equals" method in this class.(„©Ô´8ƒÅÈ’ø1J$b991ac99-3346-4806-a6d5-de28a29e90d1
+”
+java:S1206‡"PThis class overrides "hashCode()" and should therefore also override "equals()".(ğÜşŠ8„ÅÈ’ø1J$6837c2e1-6f6c-412a-beac-ce557e66a1f0
+‚
+java:S11614":Add the "@Override" annotation above this method signature(¾ÍĞ–üÿÿÿÿ8‰ÅÈ’ø1J$9afc9a5c-51f2-4d09-89f9-6168a1468516
+}
+java:S1161=":Add the "@Override" annotation above this method signature(¾ÊØô8ŠÅÈ’ø1J$cf4fa81e-c63a-48bb-ac32-f1f47d1ef73f
+‚
+java:S1161P":Add the "@Override" annotation above this method signature(¶øßøÿÿÿÿ8‹ÅÈ’ø1J$8808819f-a382-430a-a456-b9d08eefa99b
+‚
+java:S1161k":Add the "@Override" annotation above this method signature(Í÷øĞıÿÿÿÿ8ŒÅÈ’ø1J$611def6c-8068-4ac8-a8ff-338a4b270338

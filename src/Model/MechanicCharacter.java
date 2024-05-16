@@ -141,7 +141,12 @@ public class MechanicCharacter extends Character {
         String fieldName = this.getField() == null ? "-" : this.getField().getName();
         String pickedPipeName = this.pickedPipe == null ? "-" : this.pickedPipe.getName();
         String pickedPumpName = this.pickedPump == null ? "-" : this.pickedPump.getName();
-        return "MechanicCharacter " + this.getName() + " " + fieldName + " " + pickedPipeName + "," + pickedPumpName;
+
+        return "MechanicCharacter "
+                + "\tName: " + this.getName() + "\n"
+                + "\tField: " + fieldName + "\n"
+                + "\tPipe: "+ pickedPipeName + "\n"
+                + "\tPump: "+ pickedPumpName + "\n";
     }
 
 

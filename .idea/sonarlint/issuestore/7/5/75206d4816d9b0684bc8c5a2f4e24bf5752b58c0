@@ -1,12 +1,10 @@
 
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-O
-java:S5993 "9Change the visibility of this constructor to "protected".(ï·Ù€
-T
-java:S5993("9Change the visibility of this constructor to "protected".(€”’ëüÿÿÿÿ
-O
-java:S59933"9Change the visibility of this constructor to "protected".(æ‡§‹
-i	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ¨ıÇùÿÿÿÿ
-I
-java:S1135ÿ"2Complete the task associated to this TODO comment.(…ïœ†
-i	java:S100¤"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í÷øĞıÿÿÿÿ
+•	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“J$e1452ba0-5526-4883-8c60-71549e28963e
+u
+java:S5993 "9Change the visibility of this constructor to "protected".(ï·Ù€J$eb37d99d-3d6a-49fd-b1dd-135a6b330657
+z
+java:S5993("9Change the visibility of this constructor to "protected".(€”’ëüÿÿÿÿJ$aef21b56-7141-4031-b92a-e9cf6c7b003f
+u
+java:S59933"9Change the visibility of this constructor to "protected".(æ‡§‹J$0dbc242a-1eb0-4f4e-a183-3b8afb013f38
+	java:S100˜"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÿ¨ıÇùÿÿÿÿJ$934ae09d-71a7-411b-9ec8-cd5dc4a82e0e
+	java:S100¡"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í÷øĞıÿÿÿÿJ$a894d506-5880-45e0-a37b-eaf5fa39a2ce
