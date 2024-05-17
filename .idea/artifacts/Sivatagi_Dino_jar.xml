@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Sivatagi-Dino:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Sivatagi_Dino_jar</output-path>
-    <root id="archive" name="Sivatagi-Dino.jar">
-      <element id="module-output" name="Sivatagi-Dino" />
-    </root>
-  </artifact>
-</component>

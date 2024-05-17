@@ -1,15 +1,0 @@
-
-†
-java:S1319;"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(€µâ½
-‹
-java:S1319w"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(½ëÒÿÿÿÿÿ
-f	java:S117G"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(çßù“
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(á–Ì“
-m	java:S116"SRename this field "pi_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰¡Ï„şÿÿÿÿ
-h	java:S116"SRename this field "pu_count" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†áœµ
-N
-java:S5993"9Change the visibility of this constructor to "protected".(Ë†şp
-N
-java:S5993%"9Change the visibility of this constructor to "protected".(¢¢²`
-I
-java:S1135ƒ"2Complete the task associated to this TODO comment.(…ïœ†
