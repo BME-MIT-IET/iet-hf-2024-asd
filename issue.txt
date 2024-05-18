@@ -1,0 +1,20 @@
+Tosca:
+
+UI tesztek készítéséhez a Tricentis Tosca 16.0 LTS verzióját használtuk. Ezzel az eszközzel könnyebbé tudjuk tenni a tesztelését UI eszközöknek, mint:Gomb,szöveg input mező, billentyűzet lenyomása. Tesztelés során arra törekedtünk, hogy a felhasználónak minél pozitívabb legyen a játékélménye.
+
+
+
+A teszteket Manual Test Case-el készítettük el, amelyek megtalálhatók a Toscan Project home/Project/iet_teszten belül. Minden teszt lépéshez készült 1-1 screenshot is, ami segíthet az eligazódásban. A tesztek futtatását a Scratchbook-al végeztük el
+A teszteket két kisebb kategóriába soroltuk:
+Játék előtti beállítások tesztje:
+Erre egy nagy teszt készült, amiben ki próbáljuk az összes UI elementet.
+A tesztek futtásához jobb-klikkelni kell és run from scratchbook-ra kell kattintani.Ezután elíndítani a játékot és az utasításokat követve tesztelni.
+
+
+A Játék előtti képernyő így néz ki:<KÉP IDE>
+Az erre készült teszt a PreGameTeszt mappában található.A teszt során létrehoztunk egy-egy új szerelőt az adott gombokra való kattintás mindegyiket elneveztük és elindítottuk a játékot. A játék sikeresen betöltött a megfelelő játékosokkal, ezért a teszt sikeres volt.
+
+Játék utáni teszt:
+move tesztek:
+A játék szabályai szerint egy játékos csak is egy mellette lévő pumpára és csőre léphet rá, utóbbi csak akkor ha azon nincsen egy karakter sem.
+..
