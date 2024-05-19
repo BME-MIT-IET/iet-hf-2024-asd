@@ -127,7 +127,12 @@ public class MechanicTest {
     @Test
     public void testToString() {
         MechanicCharacter mc = new MechanicCharacter("MechanicName", mockField, mockPipe, mockPump);
-        String expectedString = "MechanicCharacter MechanicName " + mockField.getName() + " " + mockPipe.getName() + "," + mockPump.getName();
-        assertEquals(mc.toString(), mc.toString());
+        String expectedString =
+        "MechanicCharacter\n"
+                + "\tName: " + "MechanicName" + "\n"
+                + "\tField: " + mockField.getName() + "\n"
+                + "\tPipe in hand: "+ mockPipe.getName() + "\n"
+                + "\tPump in hand: "+ mockPump.getName() + "\n";
+        assertEquals(expectedString, mc.toString());
     }
 }

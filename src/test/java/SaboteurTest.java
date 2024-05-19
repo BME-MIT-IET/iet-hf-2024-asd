@@ -61,15 +61,21 @@ public class SaboteurTest {
     @Test
     public void testToString() {
         SaboteurCharacter sc = new SaboteurCharacter("SaboteurName", mockField, mockPipe);
-        String expectedString = "SaboteurCharacter SaboteurName " + mockField.getName() + " " + mockPipe.getName();
-        assertEquals(sc.toString(), sc.toString());
+        String expectedString = "SaboteurCharacter\n"
+                + "\tName: " + "SaboteurName" + "\n"
+                + "\tField: " + mockField.getName() + "\n"
+                + "\tPipe in hand: "+ mockPipe.getName() + "\n";
+        assertEquals(expectedString, sc.toString());
     }
 
     @Test
     public void testToStringWithoutFieldAndPipe() {
         SaboteurCharacter sc = new SaboteurCharacter("SaboteurName");
-        String expectedString = "SaboteurCharacter SaboteurName - -";
-        assertEquals(sc.toString(), sc.toString());
+        String expectedString = "SaboteurCharacter\n"
+                + "\tName: " + "SaboteurName" + "\n"
+                + "\tField: " + "-" + "\n"
+                + "\tPipe in hand: "+ "-"+ "\n";
+        assertEquals(expectedString, sc.toString());
     }
 }
 
