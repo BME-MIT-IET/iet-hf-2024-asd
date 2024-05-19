@@ -75,3 +75,5 @@
 [3] 16:07:26: OpenWorkspace took 00:00:08.3618427 to finish
 [2] 16:07:26: Common repository is not available
 [4] 16:07:26:  ShowStatusInfo: 'Ready'
+[3] 16:10:16: Closing Workspace!
+[3] 16:10:16: Log closed!
