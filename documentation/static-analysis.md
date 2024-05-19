@@ -1,33 +1,17 @@
-Mivel azon a projlab projekten dolgozunk, aminek az elkészítésében én is részt vettem, a feladataimat a projekt azon részén végzem el, amiket én ítam.
-Ezek a Character, MechanicCharacter és SaboteurCharacter osztályok
-
 # Manuális kód átvizsgálás
 
-## Character
+IntelliJben megnyitottam a projektet és ott ellenőriztem azokat az osztályokat, amiket én írtam még a projekt laborban.
 
-A Character osztály a játékban szereplő karakterek absztrakt reprezentációja. Megvalósítja a Nameable és a Comparable<Character> interfészeket, és különféle módszereket biztosít a játék környezetével való interakcióra, például mezők közötti mozgásra, csövekkel és pumpákkal való interakcióra, valamint különböző állapotok kezelésére, mint például a beragadás.
+## Észrevételek
 
-**Észrevételek:**
-1. <del>Helykitöltő metódusokat meg lehetne jelölni absztraktként és az alosztályokban megvalósítani őket<del>
-2. A compareTo metódus nem túl oop, de túl sok dolog épít rá a projekt többi részében
-3. Az equals metódus sem túl oop, de túl sok dolog épít rá a projekt többi részében
-4. <del>Typo: In word 'recieve'<del>
-
-## MechanicCharacter
-
-A MechanicCharacter osztály egy speciális karaktert reprezentál a játékban, aki képes csöveket és pumpákat javítani vagy állítani. Az osztály kiterjeszti a Character osztályt, és új funkcionalitást ad hozzá a játékhoz.
-
-**Észrevételek:**
-1. <del>Lehetne javítani a toString metóduson, hogy olvashatóbb legyen<del>
-2. A null ellenőrzések néha !=, néha ==-vel történnek, ami fejlesztés közben is problémát okozott az átláthatóságban
-3. <del>Typo: In word 'recieve'<del>
-
-## SaboteurCharacter
-
-A SaboteurCharacter osztály egy speciális karaktert reprezentál a játékban, aki képes csöveket és pumpákat tönkretenni vagy állítani. Az osztály kiterjeszti a Character osztályt, és új funkcionalitást ad hozzá a játékhoz.
-
-**Észrevételek:**
-1. <del>Lehetne javítani a toString metóduson, hogy olvashatóbb legyen<del> 
+1. Helykitöltő metódusokat meg lehetne jelölni absztraktként és az alosztályokban megvalósítani őket
+2. `toString` metódus lehetne olvashatóbb
+3. Elírások
+4. Az objektumorientált elveket megszegő függvények (nem javítottuk, mert ez a rossz tervezés ereménye volt és ezek a működést nem befolyásolják).
 
 # Statikus analízis eszköz futtatása és jelzett hibák átnézése
 
+A statikus kódanalízis során SonarLint és SonarCloud segítségével számos hibát azonosítottam, különösen a elnevezési konvenciók terén, ezeket nem javítottam, mert sok volt belőlük és nem tanultam volna sokat belőle. Magas súlyosságú hibákat, például a nem megfelelően használt final típusú adattagok elnevezését, javítottam. Továbbá refaktoráltam hosszú és bonyolult függvényeket, elláttam a switch utasításokat default esetekkel, és biztonságossá tettem a random számgenerátorokat. Ezek a változtatások hozzájárultak a kód karbantarthatóságának javításához és a potenciális hibák csökkentéséhez.
+## Tanulság
+
+Az IDE-k beépített kódanalizátorai nem mindig fedik fel az összes problémát. A jövőben meggondolom a statikus kódanalízis használatát, hogy elősegítsem a kód minőségének javítását.
