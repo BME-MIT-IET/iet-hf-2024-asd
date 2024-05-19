@@ -16,7 +16,7 @@ public class View extends JFrame {
         int WIDTH = Settings.WINDOW_WIDTH;
         int HEIGHT = Settings.WINDOW_HEIGHT;
         this.setSize(WIDTH, HEIGHT);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         ImageIcon LOGO = new ImageIcon("./assets/dino_icon.png");
         this.setIconImage(LOGO.getImage());
         this.setLocationRelativeTo(null);

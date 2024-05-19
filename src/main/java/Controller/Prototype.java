@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Prototype {
 
+    private static final String ACTION = "Invalid parameter";
     public Board map = new Board();
     private int round = 1;
     private int mc_index = 0;
@@ -145,7 +146,7 @@ public class Prototype {
 
     private boolean move(String[] parts) {
         if (parts.length < 2 || map.getField(parts[1]) == null) {
-            IO.writeActionError("m", "Invalid parameter");
+            IO.writeActionError("m", ACTION);
             return false;
         }
 
@@ -160,7 +161,7 @@ public class Prototype {
 
     private boolean setPumpInput(String[] parts) {
         if (parts.length < 2 || !IO.isInteger(parts[1])) {
-            IO.writeActionError("i", "Invalid parameter");
+            IO.writeActionError("i", ACTION);
             return false;
         }
 
@@ -175,7 +176,7 @@ public class Prototype {
 
     private boolean setPumpOutput(String[] parts) {
         if (parts.length < 2 || !IO.isInteger(parts[1])) {
-            IO.writeActionError("o", "Invalid parameter");
+            IO.writeActionError("o", ACTION);
             return false;
         }
 
@@ -208,7 +209,7 @@ public class Prototype {
 
     private boolean pickupPipe(String[] parts) {
         if (parts.length < 2 || !IO.isInteger(parts[1])) {
-            IO.writeActionError("p", "Invalid parameter");
+            IO.writeActionError("p", ACTION);
             return false;
         }
 
