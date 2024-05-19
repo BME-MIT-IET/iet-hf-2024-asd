@@ -1,0 +1,30 @@
+[3] 16:08:05: Log started for 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt2.tws'
+[3] 16:08:05: Log level: 4
+[3] 16:08:05: Release: 16.0.0.3027
+[3] 16:08:05: Execution Approval is disabled.
+[3] 16:08:05: No service discovery configured.
+[3] 16:08:05:  + CloudDistributedExecutionAddIn: CloudDistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + DistributedExecutionAddIn: DistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + ElasticExecutionGridAddIn: ElasticExecutionGridAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  - ExecutionApprovalAddIn: ExecutionApprovalAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + ExploratoryTestingAssistant: ExploratoryTestingAssistantAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + ExploratoryTestingAssistantUI: ExploratoryTestingAssistantUIAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + IntegrationManagementAddIn: IntegrationManagementAddIn 16.0.0.3027 (3027)
+    + : SAPSolutionManagerIntegration 16.0.0.3027 (3027)
+[3] 16:08:06: Search started on 1 objects for query '->PROJECT->SUBPARTS:TCFolder[Name=="Execution"]->SUBPARTS:TCFolder=>SUBPARTS:InteractiveSession'
+[3] 16:08:06: Searcher found 0 results in 84,5778 ms
+[3] 16:08:06:  + OptIntAddIn: OptIntAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + QTestIntegrationAddIn: QTestIntegrationAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + RemoteControl: RemoteControlAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + Reporting: ReportingAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + ReportingUI: ReportingUIAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + RequirementsManagementAddIn: RequirementsManagement 16.0.0.3027 (3027)
+[3] 16:08:06:  + RequirementsManagementUIAddIn: RequirementsManagementUI 16.0.0.3027 (3027)
+[3] 16:08:06:  + SAPCloudAlmAddIn: SAPCloudAlmAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + SAPSolutionManagerAddIn: SAPSolutionManagerAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + TestCaseDesign: TestCaseDesign 16.0.0.3027 (3027)
+[3] 16:08:06:  + ControlFlowDiagram: TestCaseVisualizationAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + XDefinitions: XDefinitions 16.0.0.3027 (3027)
+[3] 16:08:06:  + XDefinitionsUI: XDefinitionsUI 16.0.0.3027 (3027)
+[3] 16:08:06: Opened from Workspace File 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt2.tws'
+[4] 16:08:08:  ShowStatusInfo: 'Ready'
