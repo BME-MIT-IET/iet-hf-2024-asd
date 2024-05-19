@@ -1,0 +1,53 @@
+[3] 16:08:05: Log started for 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt2.tws'
+[3] 16:08:05: Log level: 4
+[3] 16:08:05: Release: 16.0.0.3027
+[3] 16:08:05: Execution Approval is disabled.
+[3] 16:08:05: No service discovery configured.
+[3] 16:08:05:  + CloudDistributedExecutionAddIn: CloudDistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + DistributedExecutionAddIn: DistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + ElasticExecutionGridAddIn: ElasticExecutionGridAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  - ExecutionApprovalAddIn: ExecutionApprovalAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + ExploratoryTestingAssistant: ExploratoryTestingAssistantAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + ExploratoryTestingAssistantUI: ExploratoryTestingAssistantUIAddIn 16.0.0.3027 (3027)
+[3] 16:08:05:  + IntegrationManagementAddIn: IntegrationManagementAddIn 16.0.0.3027 (3027)
+    + : SAPSolutionManagerIntegration 16.0.0.3027 (3027)
+[3] 16:08:06: Search started on 1 objects for query '->PROJECT->SUBPARTS:TCFolder[Name=="Execution"]->SUBPARTS:TCFolder=>SUBPARTS:InteractiveSession'
+[3] 16:08:06: Searcher found 0 results in 84,5778 ms
+[3] 16:08:06:  + OptIntAddIn: OptIntAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + QTestIntegrationAddIn: QTestIntegrationAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + RemoteControl: RemoteControlAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + Reporting: ReportingAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + ReportingUI: ReportingUIAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + RequirementsManagementAddIn: RequirementsManagement 16.0.0.3027 (3027)
+[3] 16:08:06:  + RequirementsManagementUIAddIn: RequirementsManagementUI 16.0.0.3027 (3027)
+[3] 16:08:06:  + SAPCloudAlmAddIn: SAPCloudAlmAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + SAPSolutionManagerAddIn: SAPSolutionManagerAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + TestCaseDesign: TestCaseDesign 16.0.0.3027 (3027)
+[3] 16:08:06:  + ControlFlowDiagram: TestCaseVisualizationAddIn 16.0.0.3027 (3027)
+[3] 16:08:06:  + XDefinitions: XDefinitions 16.0.0.3027 (3027)
+[3] 16:08:06:  + XDefinitionsUI: XDefinitionsUI 16.0.0.3027 (3027)
+[3] 16:08:06: Opened from Workspace File 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt2.tws'
+[4] 16:08:08:  ShowStatusInfo: 'Ready'
+[4] 16:46:20:  ShowStatusInfo: 'Refresh all finished'
+[0] 16:46:20: ShowDetailedErrorMessage  (fatal)
+[0] 16:46:20: code = Error (1), message = System.Data.SQLite.SQLiteException (0x800007BF): SQL logic error
+no such table: tcObject
+   at System.Data.SQLite.SQLite3.Prepare(SQLiteConnection cnn, String strSql, SQLiteStatement previous, UInt32 timeoutMS, String& strRemain)
+   at System.Data.SQLite.SQLiteCommand.BuildNextCommand()
+   at System.Data.SQLite.SQLiteDataReader.NextResult()
+   at System.Data.SQLite.SQLiteDataReader..ctor(SQLiteCommand cmd, CommandBehavior behave)
+   at System.Data.SQLite.SQLiteCommand.ExecuteReader(CommandBehavior behavior)
+   at Tricentis.TCCore.Persistency.Repository.ClusterRepository.Database.DbAdaptor.ReadSurrogatesForTypes(IEnumerable`1 types, Nullable`1 minimumRevision)
+   at Tricentis.TCCore.Persistency.Repository.ClusterRepository.Database.DbAdaptor.ReadSurrogatesForTypes(IEnumerable`1 types)
+   at Tricentis.TCCore.Persistency.Repository.ClusterRepository.ClusterRepository.GetSurrogates(IEnumerable`1 typeIds, Nullable`1 minimumRevision)
+   at Tricentis.TCCore.Persistency.Repository.ClusterRepository.ClusterRepository.GetSurrogatesForType(IEnumerable`1 typeDescs, Nullable`1 minimumRevision)
+   at Tricentis.TCCore.Persistency.Repository.ClusterRepository.ClusterRepository.GetSurrogatesForType(IEnumerable`1 typeDescs)
+   at Tricentis.TCCore.Persistency.ObjectHandler.GetSurrogatesForType(IEnumerable`1 typeDesc, Nullable`1 minimumRevision)
+   at Tricentis.TCCore.Persistency.ObjectHandler.GetSurrogates(ICollection`1 typeDesc, Nullable`1 minimumRevision)
+   at Tricentis.TCCore.BusinessObjects.TCProject.GetAllTopFoldersByContentPolicies(HashSet`1 policies, Dictionary`2& policyToFolder, Predicate`1 stop)
+   at Tricentis.TCCore.GUI.Menu.UpdateItemOpenNewWindow.Refresh()
+   at Tricentis.TCCore.GUI.Menu.UpdateConnector.Refresh()
+   at Tricentis.TCCore.GUI.CommanderWindow.OpenWorkspace(String workspaceFilePath, String loginName, String loginPassword)
+   at Tricentis.TCCore.GUI.CommanderWindow.OpenWorkspaceFromPassedArguments(GuiLoginInfo loginInfo)
+   at Tricentis.TCCore.GUI.CommanderWindow..ctor(String[] args)
+   at Tricentis.TCCore.GUI.Program.RunCommanderWindow(String[] args)

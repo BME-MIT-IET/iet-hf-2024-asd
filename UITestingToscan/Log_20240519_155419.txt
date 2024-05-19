@@ -1,0 +1,32 @@
+[3] 15:54:19: Log started for 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt.tws'
+[3] 15:54:19: Log level: 4
+[3] 15:54:19: Release: 16.0.0.3027
+[3] 15:54:19: Execution Approval is disabled.
+[3] 15:54:19: No service discovery configured.
+[3] 15:54:19:  + CloudDistributedExecutionAddIn: CloudDistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + DistributedExecutionAddIn: DistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + ElasticExecutionGridAddIn: ElasticExecutionGridAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  - ExecutionApprovalAddIn: ExecutionApprovalAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + ExploratoryTestingAssistant: ExploratoryTestingAssistantAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + ExploratoryTestingAssistantUI: ExploratoryTestingAssistantUIAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + IntegrationManagementAddIn: IntegrationManagementAddIn 16.0.0.3027 (3027)
+    + : SAPSolutionManagerIntegration 16.0.0.3027 (3027)
+[3] 15:54:19: Search started on 1 objects for query '->PROJECT->SUBPARTS:TCFolder[Name=="Execution"]->SUBPARTS:TCFolder=>SUBPARTS:InteractiveSession'
+[3] 15:54:19: Searcher found 0 results in 76,9902 ms
+[3] 15:54:19:  + OptIntAddIn: OptIntAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + QTestIntegrationAddIn: QTestIntegrationAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + RemoteControl: RemoteControlAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + Reporting: ReportingAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + ReportingUI: ReportingUIAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + RequirementsManagementAddIn: RequirementsManagement 16.0.0.3027 (3027)
+[3] 15:54:19:  + RequirementsManagementUIAddIn: RequirementsManagementUI 16.0.0.3027 (3027)
+[3] 15:54:19:  + SAPCloudAlmAddIn: SAPCloudAlmAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + SAPSolutionManagerAddIn: SAPSolutionManagerAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + TestCaseDesign: TestCaseDesign 16.0.0.3027 (3027)
+[3] 15:54:19:  + ControlFlowDiagram: TestCaseVisualizationAddIn 16.0.0.3027 (3027)
+[3] 15:54:19:  + XDefinitions: XDefinitions 16.0.0.3027 (3027)
+[3] 15:54:19:  + XDefinitionsUI: XDefinitionsUI 16.0.0.3027 (3027)
+[3] 15:54:19: Opened from Workspace File 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt.tws'
+[3] 15:56:33: Layout not saved: No Panels or Tabbed Documents
+[3] 15:56:33: Closing Workspace!
+[3] 15:56:33: Log closed!

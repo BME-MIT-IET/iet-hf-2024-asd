@@ -3,7 +3,7 @@
   <WorkspaceRepository>
     <RepoClass>SQLiteRepository</RepoClass>
     <DatabasePathAndName>.\Repository\iet_teszt.db</DatabasePathAndName>
-    <Database>C:\suli\6\iet\iet-hf-2024-asd\UITestingToscan\iet_teszt\Repository\iet_teszt.db</Database>
+    <Database>C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\Repository\iet_teszt.db</Database>
     <DatabaseUser />
     <DatabasePwd />
     <DatabaseSchema />

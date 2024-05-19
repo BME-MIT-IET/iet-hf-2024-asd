@@ -1,0 +1,79 @@
+[3] 19:37:41: Log started for 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt.tws'
+[3] 19:37:41: Log level: 4
+[3] 19:37:41: Release: 16.0.0.3027
+[3] 19:37:42: Execution Approval is disabled.
+[3] 19:37:42: No service discovery configured.
+[3] 19:37:42:  + CloudDistributedExecutionAddIn: CloudDistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + DistributedExecutionAddIn: DistributedExecutionAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + ElasticExecutionGridAddIn: ElasticExecutionGridAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  - ExecutionApprovalAddIn: ExecutionApprovalAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + ExploratoryTestingAssistant: ExploratoryTestingAssistantAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + ExploratoryTestingAssistantUI: ExploratoryTestingAssistantUIAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + IntegrationManagementAddIn: IntegrationManagementAddIn 16.0.0.3027 (3027)
+    + : SAPSolutionManagerIntegration 16.0.0.3027 (3027)
+[3] 19:37:42: Search started on 1 objects for query '->PROJECT->SUBPARTS:TCFolder[Name=="Execution"]->SUBPARTS:TCFolder=>SUBPARTS:InteractiveSession'
+[3] 19:37:42: Searcher found 0 results in 84,639 ms
+[3] 19:37:42:  + OptIntAddIn: OptIntAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + QTestIntegrationAddIn: QTestIntegrationAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + RemoteControl: RemoteControlAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + Reporting: ReportingAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + ReportingUI: ReportingUIAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + RequirementsManagementAddIn: RequirementsManagement 16.0.0.3027 (3027)
+[3] 19:37:42:  + RequirementsManagementUIAddIn: RequirementsManagementUI 16.0.0.3027 (3027)
+[3] 19:37:42:  + SAPCloudAlmAddIn: SAPCloudAlmAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + SAPSolutionManagerAddIn: SAPSolutionManagerAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + TestCaseDesign: TestCaseDesign 16.0.0.3027 (3027)
+[3] 19:37:42:  + ControlFlowDiagram: TestCaseVisualizationAddIn 16.0.0.3027 (3027)
+[3] 19:37:42:  + XDefinitions: XDefinitions 16.0.0.3027 (3027)
+[3] 19:37:42:  + XDefinitionsUI: XDefinitionsUI 16.0.0.3027 (3027)
+[3] 19:37:42: Opened from Workspace File 'C:\Users\Gamer\Documents\szofteng\iet-hf-2024-asd\UITestingToscan\iet_teszt\iet_teszt.tws'
+[3] 19:37:42: OpenWorkspace took 00:00:02.4668660 to finish
+[2] 19:37:42: Common repository is not available
+[4] 19:37:45:  ShowStatusInfo: 'Ready'
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'TestCases''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Modules''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Requirements''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'TestCaseDesign''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Execution''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Issues''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Configurations''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'TestPlanning''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'iet_teszt''
+[4] 19:37:48:  ShowStatusInfo: 'Ready'
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'TestCases''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Modules''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Requirements''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'TestCaseDesign''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Execution''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Issues''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Configurations''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'TestPlanning''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'iet_teszt''
+[4] 19:37:48:  ShowStatusInfo: 'Ready'
+[4] 19:37:48:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh all finished'
+[4] 19:37:48:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'TestCases''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Modules''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Requirements''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'TestCaseDesign''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Execution''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Issues''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'Configurations''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'TestPlanning''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh navigation view 'iet_teszt''
+[4] 19:37:48:  ShowStatusInfo: 'Ready'
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'TestCases''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Modules''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Requirements''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'TestCaseDesign''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Execution''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Issues''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'Configurations''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'TestPlanning''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh detail view 'iet_teszt''
+[4] 19:37:48:  ShowStatusInfo: 'Ready'
+[4] 19:37:48:  ShowStatusInfo: 'Refresh  'WindowLabels''
+[4] 19:37:48:  ShowStatusInfo: 'Refresh all finished'
+[3] 19:37:52: Closing Workspace!
+[3] 19:37:52: Log closed!
