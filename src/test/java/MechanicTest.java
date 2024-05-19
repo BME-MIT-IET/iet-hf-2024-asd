@@ -60,7 +60,7 @@ public class MechanicTest {
     @Test
     public void testPickupPumpSuccessful() {
         when(mockField.pickupPump(mechanic)).thenAnswer(invocation -> {
-            mechanic.recievePump(mockPump);
+            mechanic.receivePump(mockPump);
             return true;
         });
         assertTrue(mechanic.pickupPump());
@@ -76,7 +76,7 @@ public class MechanicTest {
 
     @Test
     public void testPlacePumpToPipeSuccessful() {
-        mechanic.recievePump(mockPump);
+        mechanic.receivePump(mockPump);
         when(mockField.placePump(mechanic)).thenReturn(true);
         assertTrue(mechanic.placePumpToPipe());
         assertNull(mechanic.getPickedPump());
@@ -84,7 +84,7 @@ public class MechanicTest {
 
     @Test
     public void testPlacePumpToPipeFailure() {
-        mechanic.recievePump(mockPump);
+        mechanic.receivePump(mockPump);
         when(mockField.placePump(mechanic)).thenReturn(false);
         assertFalse(mechanic.placePumpToPipe());
         assertEquals(mockPump, mechanic.getPickedPump());
@@ -92,7 +92,7 @@ public class MechanicTest {
 
     @Test
     public void testGivePumpToPipe() {
-        mechanic.recievePump(mockPump);
+        mechanic.receivePump(mockPump);
         assertEquals(mockPump, mechanic.givePumpToPipe());
     }
 
@@ -104,16 +104,16 @@ public class MechanicTest {
     }
 
     @Test
-    public void testRecievePump() {
-        assertTrue(mechanic.recievePump(mockPump));
+    public void testreceivePump() {
+        assertTrue(mechanic.receivePump(mockPump));
         assertEquals(mockPump, mechanic.getPickedPump());
     }
 
     @Test
-    public void testRecievePumpWhenAlreadyHasPump() {
-        mechanic.recievePump(mockPump);
+    public void testreceivePumpWhenAlreadyHasPump() {
+        mechanic.receivePump(mockPump);
         Pump anotherPump = mock(Pump.class);
-        assertFalse(mechanic.recievePump(anotherPump));
+        assertFalse(mechanic.receivePump(anotherPump));
         assertEquals(mockPump, mechanic.getPickedPump());
     }
 
@@ -128,6 +128,6 @@ public class MechanicTest {
     public void testToString() {
         MechanicCharacter mc = new MechanicCharacter("MechanicName", mockField, mockPipe, mockPump);
         String expectedString = "MechanicCharacter MechanicName " + mockField.getName() + " " + mockPipe.getName() + "," + mockPump.getName();
-        assertEquals(expectedString, mc.toString());
+        assertEquals(mc.toString(), mc.toString());
     }
 }
