@@ -48,6 +48,8 @@ public class GameController {
     private int mc_points = 0;
     private int sc_points = 0;
 
+    private static final String ACTION = "Select action";
+
     /**
      * Interface for action run with coordinates
      */
@@ -195,7 +197,7 @@ public class GameController {
         view.requestFocus();
 
         // Init view with board and possible actions
-        view.init(this.board, getPossibleActions(), this.getWhoseNext(), "Select action");
+        view.init(this.board, getPossibleActions(), this.getWhoseNext(), ACTION);
 
     }
 
@@ -263,57 +265,63 @@ public class GameController {
         view.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                // If game is over --> do not process key
-                if (isGameOver()) {
-                    // If enter is pressed --> close window
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                        System.exit(0);
-                    }
-                    return;
-                }
-
-                // Set last pressed key
-                lastKeyPressed = e.getKeyChar();
-
-                // Find action by key
-                Action action = actions.get(lastKeyPressed);
-
-                // Check if action exists
-                if (action == null) return;
-
-                // If next character can't make action --> return
-                if (
-                        nextCharacterIndex < 0 ||
-                                nextCharacterIndex >= board.mechanicCharacters.size() + board.saboteurCharacters.size() ||
-                                nextCharacterIndex < board.mechanicCharacters.size() && !action.isMechanicAction ||
-                                nextCharacterIndex >= board.saboteurCharacters.size() && !action.isSaboteurAction
-                ) {
-                    return;
-                }
-
-                // Run action if no need for click
-                if (!action.isNeedClick) {
-                    isWaitingForClick = false;
-                    boolean isActionSuccess = action.actionFunc.op();
-                    // If success --> next player, update view
-                    if (isActionSuccess) {
-                        actionRunnedSuccessfully();
-                    } else {
-                        actionRunFailed();
-                    }
-                }
-
-                // Else wait for click
-                else {
-                    isWaitingForClick = true;
-                    view.updateMessage("Waiting for click...");
-                    // Show selected action on view
-                    view.updateActions(getPossibleActions(), lastKeyPressed.toString());
-                }
+                handleKeyPressed(e);
             }
-
         });
     }
+
+    private void handleKeyPressed(KeyEvent e) {
+        if (isGameOver()) {
+            handleGameOverKeyPress(e);
+            return;
+        }
+
+        lastKeyPressed = e.getKeyChar();
+        Action action = actions.get(lastKeyPressed);
+
+        if (action == null || !isValidAction(action)) {
+            return;
+        }
+
+        if (!action.isNeedClick) {
+            processActionWithoutClick(action);
+        } else {
+            waitForClick();
+        }
+    }
+
+    private void handleGameOverKeyPress(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            System.exit(0);
+        }
+    }
+
+    private boolean isValidAction(Action action) {
+        if (nextCharacterIndex < 0 ||
+                nextCharacterIndex >= board.mechanicCharacters.size() + board.saboteurCharacters.size() ||
+                (nextCharacterIndex < board.mechanicCharacters.size() && !action.isMechanicAction) ||
+                (nextCharacterIndex >= board.saboteurCharacters.size() && !action.isSaboteurAction)) {
+            return false;
+        }
+        return true;
+    }
+
+    private void processActionWithoutClick(Action action) {
+        isWaitingForClick = false;
+        boolean isActionSuccess = action.actionFunc.op();
+        if (isActionSuccess) {
+            actionRunnedSuccessfully();
+        } else {
+            actionRunFailed();
+        }
+    }
+
+    private void waitForClick() {
+        isWaitingForClick = true;
+        view.updateMessage("Waiting for click...");
+        view.updateActions(getPossibleActions(), String.valueOf(lastKeyPressed));
+    }
+
 
     /**
      * Add mouse listener to view
@@ -353,12 +361,12 @@ public class GameController {
     private void actionRunnedSuccessfully() {
         isWaitingForClick = false;
         nextCharacter();
-        view.update(board, mc_points, sc_points, getWhoseNext(), this.round, "Select action");
+        view.update(board, mc_points, sc_points, getWhoseNext(), this.round, ACTION);
     }
 
     private void actionRunFailed() {
         isWaitingForClick = false;
-        view.update(board, mc_points, sc_points, getWhoseNext(), this.round, "Select action");
+        view.update(board, mc_points, sc_points, getWhoseNext(), this.round, ACTION);
         view.updateActions(getPossibleActions(), null);
     }
 

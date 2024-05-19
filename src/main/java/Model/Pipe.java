@@ -10,13 +10,15 @@ import java.util.Random;
 /**
  * Cső osztály a játékban amin kell a víz tud áramolni
  */
-public class Pipe extends Field implements Steppable, Cloneable {
+public class Pipe extends Field implements Steppable {
 
     /**
      * A cső két végére csatlakoztatott pumpa/ciszterna/forrás
      */
     private final ArrayList<Attachable> attachableList = new ArrayList<>();
     private boolean holey = false;
+
+    Random random = new Random();
     int sticky = 0;
     int slippery = 0;
     int breakable = 0;
@@ -185,8 +187,7 @@ public class Pipe extends Field implements Steppable, Cloneable {
             }
 
             int randMax = neighbours.size();
-            Random rand = new Random();
-            return neighbours.get(rand.nextInt(0, randMax)).accept(c);
+            return neighbours.get(random.nextInt(0, randMax)).accept(c);
         }
         return true;
     }
@@ -296,16 +297,6 @@ public class Pipe extends Field implements Steppable, Cloneable {
 
     public int getSlippery() {
         return slippery;
-    }
-
-    public Object clone() throws CloneNotSupportedException {
-        Pipe clone = (Pipe) super.clone();
-        clone.attachableList.addAll(this.attachableList);
-        clone.holey = this.holey;
-        clone.breakable = this.breakable;
-        clone.sticky = this.sticky;
-        clone.slippery = this.slippery;
-        return clone;
     }
 
     public boolean getHoley() {

@@ -13,8 +13,8 @@ public class View extends JFrame {
     public View() {
         String TITLE = "Sivatagi Dínó";
         this.setTitle(TITLE);
-        int WIDTH = Settings.window_width;
-        int HEIGHT = Settings.window_height;
+        int WIDTH = Settings.WINDOW_WIDTH;
+        int HEIGHT = Settings.WINDOW_HEIGHT;
         this.setSize(WIDTH, HEIGHT);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ImageIcon LOGO = new ImageIcon("./assets/dino_icon.png");

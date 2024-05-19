@@ -16,6 +16,8 @@ import java.util.TreeMap;
  */
 public class Board {
 
+    Random random = new Random();
+
     public TreeMap<String, Point> coordinates = new TreeMap<>();
 
     /**
@@ -98,8 +100,7 @@ public class Board {
         fields.addAll(pumps.values());
         fields.addAll(cisterns.values());
         if (includePipes) fields.addAll(pipes.values());
-        Random rand = new Random();
-        return fields.get(rand.nextInt(fields.size()));
+        return fields.get(random.nextInt(fields.size()));
     }
 
     /**
@@ -184,7 +185,6 @@ public class Board {
      * Létrehozza a pályát a bemeneti adatok alapján
      */
     public void createFromInput() {
-        // Read all init lines from input
         ArrayList<String> lines = IO.readAllInit();
 
         // Create objects with names and states (states that are not other objects)
@@ -192,88 +192,9 @@ public class Board {
             String[] parts = line.split(" ");
             String type = parts[0];
             String name = parts[1];
-            String[] states = new String[0];
-            if (parts.length > 3) {
-                states = parts[3].split(",");
-            }
+            String[] states = (parts.length > 3) ? parts[3].split(",") : new String[0];
 
-            switch (type) {
-                case "WaterSource" -> {
-                    if (states.length == 1) {
-                        // Check if states are valid types
-                        if (!IO.isInteger(states[0]))
-                            throw new IllegalArgumentException("WaterSource pushedWater must be an integer: " + line);
-                        // Parse states
-                        int pushedWater = Integer.parseInt(states[0]);
-                        // Create water source
-                        waterSources.put(name, new WaterSource(name, pushedWater));
-                        coordinates.put(name, new Point(20, 50));
-                    } else if (states.length == 0) {
-                        waterSources.put(name, new WaterSource(name));
-                        coordinates.put(name, new Point(20, 50));
-                    } else {
-                        throw new IllegalArgumentException("WaterSource must have 0 or 1 state: " + line);
-                    }
-                }
-                case "Pump" -> {
-                    if (states.length == 5) {
-                        // Check if states are valid types
-                        if (!IO.isBoolean(states[0]) || !IO.isInteger(states[1]) || !IO.isInteger(states[2]))
-                            throw new IllegalArgumentException("Pump working must be a boolean, pushedWater and acceptedWater must be an integer: " + line);
-                        // Parse states
-                        boolean working = Boolean.parseBoolean(states[0]);
-                        int pushedWater = Integer.parseInt(states[1]);
-                        int acceptedWater = Integer.parseInt(states[2]);
-                        // Create pump
-                        pumps.put(name, new Pump(name, this, working, pushedWater, acceptedWater));
-                        coordinates.put(name, new Point(300, 10));
-                    } else if (states.length == 0) {
-                        pumps.put(name, new Pump(name, this));
-                        coordinates.put(name, new Point(200, 10));
-                    } else {
-                        throw new IllegalArgumentException("Pump must have 0 or 5 states: " + line);
-                    }
-                }
-                case "Pipe" -> {
-                    if (states.length == 3) {
-                        // Check if states are valid types
-                        if (!IO.isBoolean(states[0]) || !IO.isBoolean(states[1]) || !IO.isBoolean(states[2]))
-                            throw new IllegalArgumentException("Pipe holey, slippery and sticky must be a boolean: " + line);
-                        // Parse states
-                        boolean holey = Boolean.parseBoolean(states[0]);
-                        int slippery = Boolean.parseBoolean(states[1]) ? Settings.pipe_slippery() : 0;
-                        int sticky = Boolean.parseBoolean(states[2]) ? Settings.pipe_sticky() : 0;
-                        // Create pipe
-                        pipes.put(name, new Pipe(name, holey, slippery, sticky));
-                    } else if (states.length == 0) {
-                        pipes.put(name, new Pipe(name));
-                    } else {
-                        throw new IllegalArgumentException("Pipe must have 0 or 3 states: " + line);
-                    }
-                }
-                case "Cistern" -> {
-                    if (states.length == 3) {
-                        // Check if states are valid types
-                        if (!IO.isInteger(states[0]))
-                            throw new IllegalArgumentException("Cistern waterAccepted must be an integer: " + line);
-                        // Parse states
-                        int waterAccepted = Integer.parseInt(states[0]);
-                        String newPipeName = states[1];
-                        String newPumpName = states[2];
-
-                        // Create cistern
-                        cisterns.put(name, new Cistern(name, this, waterAccepted, newPipeName, newPumpName));
-                        coordinates.put(name, new Point(300, 50));
-                    } else if (states.length == 0) {
-                        cisterns.put(name, new Cistern(name, this));
-                        coordinates.put(name, new Point(100, 50));
-                    } else {
-                        throw new IllegalArgumentException("Cistern must have 0 or 3 states: " + line);
-                    }
-                }
-                case "MechanicCharacter" -> mechanicCharacters.put(name, new MechanicCharacter(name));
-                case "SaboteurCharacter" -> saboteurCharacters.put(name, new SaboteurCharacter(name));
-            }
+            createObject(type, name, states);
         }
 
         // Set objects connections and states
@@ -282,126 +203,217 @@ public class Board {
             String type = parts[0];
             String name = parts[1];
 
-            switch (type) {
-                case "WaterSource" -> {
-                    // Attach pipes
-                    if (parts.length >= 3) {
-                        WaterSource waterSource = waterSources.get(name);
-                        String[] pipes_names = parts[2].split(",");
-                        for (String pipe_name : pipes_names) {
-                            if (pipe_name.equals("null") || pipe_name.equals("-")) continue;
-                            waterSource.attachPipe(pipes.get(pipe_name));
-                        }
-                    }
-                }
-                case "Pump" -> {
-                    // Find pump from list
-                    Pump pump = pumps.get(name);
-                    // Attach pipes
-                    if (parts.length >= 3) {
-                        String[] pipes_names = parts[2].split(",");
-                        for (String pipe_name : pipes_names) {
-                            if (pipe_name.equals("null") || pipe_name.equals("-")) continue;
-                            pump.attachPipe(pipes.get(pipe_name));
-                        }
-                    }
-                    // Set states (output pipe, input pipe)
-                    if (parts.length >= 4) {
-                        String[] states = parts[3].split(",");
-                        String outputPipeName = states[3];
-                        String inputPipeName = states[4];
-                        ArrayList<Pipe> pipes = pump.getPipes();
-                        for (int i = 0; i < pipes.size(); i++) {
-                            if (pipes.get(i).getName().equals(outputPipeName)) {
-                                pump.setOutput(i + 1);
-                            }
-                            if (pipes.get(i).getName().equals(inputPipeName)) {
-                                pump.setInput(i + 1);
-                            }
-                        }
-                    }
-                }
-                case "Pipe" -> {
-                    // Find pipe from list
-                    Pipe pipe = pipes.get(name);
-                    // Attach pumps
-                    if (parts.length >= 3) {
-                        String[] attachable_names = parts[2].split(",");
-                        if (attachable_names.length > 2)
-                            throw new RuntimeException("Pipe can't be attached to more than 2 attachable");
-                        for (String attachable_name : attachable_names) {
-                            if (attachable_name.equals("null") || attachable_name.equals("-")) continue;
-                            // Find attachable from list
-                            Attachable found_attachable = this.getAttachable(attachable_name);
-                            if (found_attachable == null)
-                                throw new RuntimeException("Attachable not found: " + attachable_name);
-                            pipe.attached(found_attachable);
-                        }
-                    }
-                }
-                case "Cistern" -> {
-                    // Attach pipes
-                    if (parts.length >= 3) {
-                        Cistern cistern = cisterns.get(name);
-                        String[] pipes_names = parts[2].split(",");
-                        for (String pipe_name : pipes_names) {
-                            if (pipe_name.equals("null") || pipe_name.equals("-")) continue;
-                            cistern.attachPipe(pipes.get(pipe_name));
-                        }
-                    }
-                }
-                case "MechanicCharacter" -> {
-                    MechanicCharacter mechanicCharacter = mechanicCharacters.get(name);
-                    // Place mechanic character on field
-                    if (parts.length >= 3) {
-                        String fieldName = parts[2];
-                        if (fieldName.equals("null") || fieldName.equals("-")) continue;
-                        Field field = this.getField(fieldName);
-                        field.accept(mechanicCharacter);
-                    }
-                    // Set states (picked pipe, picked pump)
-                    if (parts.length >= 4) {
-                        String[] states = parts[3].split(",");
-                        String pickedPipeName = states[0];
-                        String pickedPumpName = states[1];
-                        if (!pickedPipeName.equals("null") && !pickedPipeName.equals("-")) {
-                            Pipe pickedPipe = pipes.get(pickedPipeName);
-                            mechanicCharacter.receivePipe(pickedPipe);
-                        }
-                        if (!pickedPumpName.equals("null") && !pickedPumpName.equals("-")) {
-                            Pump pickedPump = pumps.get(pickedPumpName) == null ? new Pump(pickedPumpName, this) : pumps.get(pickedPumpName);
-                            mechanicCharacter.receivePump(pickedPump);
-                        }
-                    }
-                }
-                case "SaboteurCharacter" -> {
-                    SaboteurCharacter saboteurCharacter = saboteurCharacters.get(name);
-                    // Place saboteur character on field
-                    if (parts.length >= 3) {
-                        String fieldName = parts[2];
-                        if (fieldName.equals("null") || fieldName.equals("-")) continue;
-                        Field field = this.getField(fieldName);
-                        field.accept(saboteurCharacter);
-                    }
-                    // Set states (picked pipe)
-                    if (parts.length >= 4) {
-                        String[] states = parts[3].split(",");
-                        String pickedPipeName = states[0];
-                        if (!pickedPipeName.equals("null") && !pickedPipeName.equals("-")) {
-                            Pipe pickedPipe = pipes.get(pickedPipeName);
-                            saboteurCharacter.receivePipe(pickedPipe);
-                        }
-                    }
-                }
-            }
-
+            setConnectionsAndStates(type, name, parts);
         }
-
     }
 
-    /**
-     * Létrehoz egy alapértelmezett pályát.
-     */
+    private void createObject(String type, String name, String[] states) {
+        switch (type) {
+            case "WaterSource" -> createWaterSource(name, states);
+            case "Pump" -> createPump(name, states);
+            case "Pipe" -> createPipe(name, states);
+            case "Cistern" -> createCistern(name, states);
+            case "MechanicCharacter" -> mechanicCharacters.put(name, new MechanicCharacter(name));
+            case "SaboteurCharacter" -> saboteurCharacters.put(name, new SaboteurCharacter(name));
+            default -> System.out.println("Unexpected type: " + type);
+        }
+    }
+
+    private void createWaterSource(String name, String[] states) {
+        if (states.length == 1) {
+            if (!IO.isInteger(states[0])) throw new IllegalArgumentException("WaterSource pushedWater must be an integer: " + name);
+            int pushedWater = Integer.parseInt(states[0]);
+            waterSources.put(name, new WaterSource(name, pushedWater));
+        } else if (states.length == 0) {
+            waterSources.put(name, new WaterSource(name));
+        } else {
+            throw new IllegalArgumentException("WaterSource must have 0 or 1 state: " + name);
+        }
+        coordinates.put(name, new Point(20, 50));
+    }
+
+    private void createPump(String name, String[] states) {
+        if (states.length == 5) {
+            if (!IO.isBoolean(states[0]) || !IO.isInteger(states[1]) || !IO.isInteger(states[2]))
+                throw new IllegalArgumentException("Pump working must be a boolean, pushedWater and acceptedWater must be an integer: " + name);
+            boolean working = Boolean.parseBoolean(states[0]);
+            int pushedWater = Integer.parseInt(states[1]);
+            int acceptedWater = Integer.parseInt(states[2]);
+            pumps.put(name, new Pump(name, this, working, pushedWater, acceptedWater));
+            coordinates.put(name, new Point(300, 10));
+        } else if (states.length == 0) {
+            pumps.put(name, new Pump(name, this));
+            coordinates.put(name, new Point(200, 10));
+        } else {
+            throw new IllegalArgumentException("Pump must have 0 or 5 states: " + name);
+        }
+    }
+
+    private void createPipe(String name, String[] states) {
+        if (states.length == 3) {
+            if (!IO.isBoolean(states[0]) || !IO.isBoolean(states[1]) || !IO.isBoolean(states[2]))
+                throw new IllegalArgumentException("Pipe holey, slippery and sticky must be a boolean: " + name);
+            boolean holey = Boolean.parseBoolean(states[0]);
+            int slippery = Boolean.parseBoolean(states[1]) ? Settings.pipe_slippery() : 0;
+            int sticky = Boolean.parseBoolean(states[2]) ? Settings.pipe_sticky() : 0;
+            pipes.put(name, new Pipe(name, holey, slippery, sticky));
+        } else if (states.length == 0) {
+            pipes.put(name, new Pipe(name));
+        } else {
+            throw new IllegalArgumentException("Pipe must have 0 or 3 states: " + name);
+        }
+    }
+
+    private void createCistern(String name, String[] states) {
+        if (states.length == 3) {
+            if (!IO.isInteger(states[0])) throw new IllegalArgumentException("Cistern waterAccepted must be an integer: " + name);
+            int waterAccepted = Integer.parseInt(states[0]);
+            String newPipeName = states[1];
+            String newPumpName = states[2];
+            cisterns.put(name, new Cistern(name, this, waterAccepted, newPipeName, newPumpName));
+            coordinates.put(name, new Point(300, 50));
+        } else if (states.length == 0) {
+            cisterns.put(name, new Cistern(name, this));
+            coordinates.put(name, new Point(100, 50));
+        } else {
+            throw new IllegalArgumentException("Cistern must have 0 or 3 states: " + name);
+        }
+    }
+
+    private void setConnectionsAndStates(String type, String name, String[] parts) {
+        switch (type) {
+            case "WaterSource" -> setWaterSourceConnections(name, parts);
+            case "Pump" -> setPumpConnectionsAndStates(name, parts);
+            case "Pipe" -> setPipeConnections(name, parts);
+            case "Cistern" -> setCisternConnections(name, parts);
+            case "MechanicCharacter" -> setMechanicCharacterStates(name, parts);
+            case "SaboteurCharacter" -> setSaboteurCharacterStates(name, parts);
+            default -> System.out.println("Unexpected type: " + type);
+        }
+    }
+
+    private void setWaterSourceConnections(String name, String[] parts) {
+        if (parts.length >= 3) {
+            WaterSource waterSource = waterSources.get(name);
+            String[] pipeNames = parts[2].split(",");
+            for (String pipeName : pipeNames) {
+                if (!pipeName.equals("null") && !pipeName.equals("-")) {
+                    waterSource.attachPipe(pipes.get(pipeName));
+                }
+            }
+        }
+    }
+
+    private void setPumpConnectionsAndStates(String name, String[] parts) {
+        Pump pump = pumps.get(name);
+        if (parts.length >= 3) {
+            setPumpConnections(pump, parts[2]);
+        }
+        if (parts.length >= 4) {
+            setPumpStates(pump, parts[3]);
+        }
+    }
+
+    private void setPumpConnections(Pump pump, String pipeNamesStr) {
+        String[] pipeNames = pipeNamesStr.split(",");
+        for (String pipeName : pipeNames) {
+            if (!pipeName.equals("null") && !pipeName.equals("-")) {
+                pump.attachPipe(pipes.get(pipeName));
+            }
+        }
+    }
+
+    private void setPumpStates(Pump pump, String statesStr) {
+        String[] states = statesStr.split(",");
+        if (states.length >= 5) {
+            String outputPipeName = states[3];
+            String inputPipeName = states[4];
+            ArrayList<Pipe> pumpPipes = pump.getPipes();
+            for (int i = 0; i < pumpPipes.size(); i++) {
+                if (pumpPipes.get(i).getName().equals(outputPipeName)) {
+                    pump.setOutput(i + 1);
+                }
+                if (pumpPipes.get(i).getName().equals(inputPipeName)) {
+                    pump.setInput(i + 1);
+                }
+            }
+        }
+    }
+
+
+    private void setPipeConnections(String name, String[] parts) {
+        Pipe pipe = pipes.get(name);
+        if (parts.length >= 3) {
+            String[] attachableNames = parts[2].split(",");
+            if (attachableNames.length > 2) throw new RuntimeException("Pipe can't be attached to more than 2 attachables");
+            for (String attachableName : attachableNames) {
+                if (!attachableName.equals("null") && !attachableName.equals("-")) {
+                    Attachable attachable = getAttachable(attachableName);
+                    if (attachable == null) throw new RuntimeException("Attachable not found: " + attachableName);
+                    pipe.attached(attachable);
+                }
+            }
+        }
+    }
+
+    private void setCisternConnections(String name, String[] parts) {
+        if (parts.length >= 3) {
+            Cistern cistern = cisterns.get(name);
+            String[] pipeNames = parts[2].split(",");
+            for (String pipeName : pipeNames) {
+                if (!pipeName.equals("null") && !pipeName.equals("-")) {
+                    cistern.attachPipe(pipes.get(pipeName));
+                }
+            }
+        }
+    }
+
+    private void setMechanicCharacterStates(String name, String[] parts) {
+        MechanicCharacter mechanicCharacter = mechanicCharacters.get(name);
+        if (parts.length >= 3) {
+            String fieldName = parts[2];
+            if (!fieldName.equals("null") && !fieldName.equals("-")) {
+                Field field = getField(fieldName);
+                field.accept(mechanicCharacter);
+            }
+        }
+        if (parts.length >= 4) {
+            String[] states = parts[3].split(",");
+            String pickedPipeName = states[0];
+            String pickedPumpName = states[1];
+            if (!pickedPipeName.equals("null") && !pickedPipeName.equals("-")) {
+                Pipe pickedPipe = pipes.get(pickedPipeName);
+                mechanicCharacter.receivePipe(pickedPipe);
+            }
+            if (!pickedPumpName.equals("null") && !pickedPumpName.equals("-")) {
+                Pump pickedPump = pumps.getOrDefault(pickedPumpName, new Pump(pickedPumpName, this));
+                mechanicCharacter.receivePump(pickedPump);
+            }
+        }
+    }
+
+    private void setSaboteurCharacterStates(String name, String[] parts) {
+        SaboteurCharacter saboteurCharacter = saboteurCharacters.get(name);
+        if (parts.length >= 3) {
+            String fieldName = parts[2];
+            if (!fieldName.equals("null") && !fieldName.equals("-")) {
+                Field field = getField(fieldName);
+                field.accept(saboteurCharacter);
+            }
+        }
+        if (parts.length >= 4) {
+            String[] states = parts[3].split(",");
+            String pickedPipeName = states[0];
+            if (!pickedPipeName.equals("null") && !pickedPipeName.equals("-")) {
+                Pipe pickedPipe = pipes.get(pickedPipeName);
+                saboteurCharacter.receivePipe(pickedPipe);
+            }
+        }
+    }
+
+        /**
+         * Létrehoz egy alapértelmezett pályát.
+         */
     public void createDefaultMap() {
         // Water sources
         waterSources.put("ws1", new WaterSource("ws1", 0));
@@ -409,15 +421,15 @@ public class Board {
 
         // Cisterns
         cisterns.put("ci1", new Cistern("ci1", this));
-        coordinates.put("ci1", new Point(Settings.window_width - Settings.board_circles_radius(), 200));
+        coordinates.put("ci1", new Point(Settings.WINDOW_WIDTH - Settings.board_circles_radius(), 200));
 
         // Pumps
         pumps.put("pu1", new Pump("pu1", null));
-        coordinates.put("pu1", new Point(Settings.window_width / 2, Settings.window_height / 6));
+        coordinates.put("pu1", new Point(Settings.WINDOW_WIDTH / 2, Settings.WINDOW_HEIGHT / 6));
         pumps.put("pu2", new Pump("pu2", null));
-        coordinates.put("pu2", new Point(Settings.window_width / 3, Settings.window_height / 2));
+        coordinates.put("pu2", new Point(Settings.WINDOW_WIDTH / 3, Settings.WINDOW_HEIGHT / 2));
         pumps.put("pu3", new Pump("pu3", null));
-        coordinates.put("pu3", new Point(Settings.window_width / 2, (int) (Settings.window_height / 1.5)));
+        coordinates.put("pu3", new Point(Settings.WINDOW_WIDTH / 2, (int) (Settings.WINDOW_HEIGHT / 1.5)));
 
         // Pipes
         pipes.put("pi1", new Pipe("pi1"));
@@ -452,8 +464,7 @@ public class Board {
     }
 
     public Point randomCoordinateNear(Point near) {
-        Random random = new Random();
-        int bias = Settings.window_height / 15;
+        int bias = Settings.WINDOW_HEIGHT / 15;
         int x = near.x + random.nextInt(bias * 2) - bias;
         int y = near.y + random.nextInt(bias * 2) - bias;
         return new Point(x, y);
@@ -468,15 +479,27 @@ public class Board {
     }
 
     public void createRandomMap() {
-        // Clear fields
         clearFields();
 
-        Random random = new Random();
-        int columnWidth = (Settings.window_width - 50) / 4;
+        int columnWidth = (Settings.WINDOW_WIDTH - 50) / 4;
 
-        // First column - Water sources
+        createWaterSources();
+        int pumpsCountColumnTwo = createPumpsInColumn(columnWidth, 1);
+        int pumpsCountColumnThree = createPumpsInColumn(columnWidth, 2);
+        createCisterns(columnWidth);
+
+        connectWaterSourcesToPumps(pumpsCountColumnTwo);
+        connectPumpsToPumps(pumpsCountColumnTwo, pumpsCountColumnThree);
+        connectPumpsToCisterns(pumpsCountColumnThree);
+
+        ensureAllWaterSourcesConnected(pumpsCountColumnTwo);
+        ensureAllPumpsConnected(pumpsCountColumnTwo, pumpsCountColumnThree);
+        ensureAllCisternsConnected(pumpsCountColumnThree);
+    }
+
+    private void createWaterSources() {
         int waterSourcesCount = random.nextInt(2) + 1;
-        int columnOneY = Settings.window_height / waterSourcesCount;
+        int columnOneY = Settings.WINDOW_HEIGHT / waterSourcesCount;
 
         for (int i = 0; i < waterSourcesCount; i++) {
             String wsKey = "ws" + (i + 1);
@@ -484,32 +507,25 @@ public class Board {
             Point pos = new Point(60, (int) ((i + 0.5) * columnOneY));
             coordinates.put(wsKey, pos);
         }
+    }
 
-        // Second column - Pumps
-        int pumpsCountColumnTwo = random.nextInt(3) + 1;
-        int columnTwoY = Settings.window_height / pumpsCountColumnTwo;
+    private int createPumpsInColumn(int columnWidth, int columnIndex) {
+        int pumpsCount = random.nextInt(3) + 1;
+        int columnY = Settings.WINDOW_HEIGHT / pumpsCount;
 
-        for (int i = 0; i < pumpsCountColumnTwo; i++) {
-            String pumpKey = "pu" + (i + 1);
+        for (int i = 0; i < pumpsCount; i++) {
+            String pumpKey = "pu" + (i + 1 + (columnIndex == 2 ? 3 : 0));
             pumps.put(pumpKey, new Pump(pumpKey, null));
-            Point pos = randomCoordinateNear(new Point(columnWidth + 60, (int) ((i + 0.5) * columnTwoY)));
+            Point pos = randomCoordinateNear(new Point(columnWidth * columnIndex + 60, (int) ((i + 0.5) * columnY)));
             coordinates.put(pumpKey, pos);
         }
 
-        // Third column - Pumps
-        int pumpsCountColumnThree = random.nextInt(3) + 1;
-        int columnThreeY = Settings.window_height / pumpsCountColumnThree;
+        return pumpsCount;
+    }
 
-        for (int i = 0; i < pumpsCountColumnThree; i++) {
-            String pumpKey = "pu" + (i + 1 + pumpsCountColumnTwo);
-            pumps.put(pumpKey, new Pump(pumpKey, null));
-            Point pos = randomCoordinateNear(new Point(columnWidth * 2 + 60, (int) ((i + 0.5) * columnThreeY)));
-            coordinates.put(pumpKey, pos);
-        }
-
-        // Fourth column - Cisterns
+    private void createCisterns(int columnWidth) {
         int cisternsCount = random.nextInt(2) + 1;
-        int columnFourY = Settings.window_height / cisternsCount;
+        int columnFourY = Settings.WINDOW_HEIGHT / cisternsCount;
 
         for (int i = 0; i < cisternsCount; i++) {
             String cisternKey = "ci" + (i + 1);
@@ -517,91 +533,80 @@ public class Board {
             Point pos = new Point(columnWidth * 3 + 60, (int) ((i + 0.5) * columnFourY));
             coordinates.put(cisternKey, pos);
         }
+    }
 
-        // Connect watersources with second column pumps
-        for (int i = 0; i < waterSourcesCount; i++) {
+    private void connectWaterSourcesToPumps(int pumpsCountColumnTwo) {
+        for (int i = 0; i < waterSources.size(); i++) {
             for (int j = 0; j < pumpsCountColumnTwo; j++) {
                 if (random.nextBoolean() || i == j) {
-                    String wsKey = "ws" + (i + 1);
-                    String pumpKey = "pu" + (j + 1);
-                    String pipeKey = "pi" + (i * pumpsCountColumnTwo + j + 1);
-                    pipes.put(pipeKey, new Pipe(pipeKey));
-                    waterSources.get(wsKey).attachPipe(pipes.get(pipeKey));
-                    pumps.get(pumpKey).attachPipe(pipes.get(pipeKey));
-                    pumps.get(pumpKey).setInput(pipes.get(pipeKey));
+                    connectPipe("ws" + (i + 1), "pu" + (j + 1));
                 }
             }
         }
+    }
 
-        // Connect second column pumps with third column pumps
+    private void connectPumpsToPumps(int pumpsCountColumnTwo, int pumpsCountColumnThree) {
         for (int i = 0; i < pumpsCountColumnTwo; i++) {
             for (int j = 0; j < pumpsCountColumnThree; j++) {
                 if (random.nextBoolean() || i == j) {
-                    String pumpKey1 = "pu" + (i + 1);
-                    String pumpKey2 = "pu" + (j + 1 + pumpsCountColumnTwo);
-                    String pipeKey = "pi" + (i * pumpsCountColumnThree + j + 1 + pumpsCountColumnTwo * waterSourcesCount);
-                    pipes.put(pipeKey, new Pipe(pipeKey));
-                    pumps.get(pumpKey1).attachPipe(pipes.get(pipeKey));
-                    pumps.get(pumpKey2).attachPipe(pipes.get(pipeKey));
-                    pumps.get(pumpKey1).setOutput(pipes.get(pipeKey));
-                    pumps.get(pumpKey2).setInput(pipes.get(pipeKey));
+                    connectPipe("pu" + (i + 1), "pu" + (j + 1 + pumpsCountColumnTwo));
                 }
             }
         }
-
-        // Connect third column pumps with fourth column cisterns
-        for (int i = 0; i < pumpsCountColumnThree; i++) {
-            for (int j = 0; j < cisternsCount; j++) {
-                if (random.nextBoolean() || i == j) {
-                    String pumpKey = "pu" + (i + 1 + pumpsCountColumnTwo);
-                    String cisternKey = "ci" + (j + 1);
-                    String pipeKey = "pi" + (i * cisternsCount + j + 1 + pumpsCountColumnTwo * waterSourcesCount + pumpsCountColumnThree * pumpsCountColumnTwo);
-                    pipes.put(pipeKey, new Pipe(pipeKey));
-                    pumps.get(pumpKey).attachPipe(pipes.get(pipeKey));
-                    cisterns.get(cisternKey).attachPipe(pipes.get(pipeKey));
-                    pumps.get(pumpKey).setOutput(pipes.get(pipeKey));
-                }
-            }
-        }
-
-        // Check if all water sources has at least one connection
-        for (WaterSource waterSource : waterSources.values()) {
-            if (waterSource.getPipes().size() == 0) {
-                // Connect to random pump
-                String pumpKey = "pu" + (random.nextInt(pumpsCountColumnTwo) + 1);
-                String pipeKey = "pi" + (pipes.size() + 1);
-                pipes.put(pipeKey, new Pipe(pipeKey));
-                waterSource.attachPipe(pipes.get(pipeKey));
-                pumps.get(pumpKey).attachPipe(pipes.get(pipeKey));
-            }
-        }
-
-
-        // Check if all pumps are connected
-        for (Pump pump : pumps.values()) {
-            if (pump.getPipes().size() == 0) {
-                // Connect to random pump
-                String pumpKey = "pu" + (random.nextInt(pumpsCountColumnThree) + 1 + pumpsCountColumnTwo);
-                String pipeKey = "pi" + (pipes.size() + 1);
-                pipes.put(pipeKey, new Pipe(pipeKey));
-                pump.attachPipe(pipes.get(pipeKey));
-                pumps.get(pumpKey).attachPipe(pipes.get(pipeKey));
-            }
-        }
-
-        // Check if all cisterns has at least one connection
-        for (Cistern cistern : cisterns.values()) {
-            if (cistern.getPipes().size() == 0) {
-                // Connect to random pump
-                String pumpKey = "pu" + (random.nextInt(pumpsCountColumnThree) + 1 + pumpsCountColumnTwo);
-                String pipeKey = "pi" + (pipes.size() + 1);
-                pipes.put(pipeKey, new Pipe(pipeKey));
-                cistern.attachPipe(pipes.get(pipeKey));
-                pumps.get(pumpKey).attachPipe(pipes.get(pipeKey));
-            }
-        }
-
     }
+
+    private void connectPumpsToCisterns(int pumpsCountColumnThree) {
+        for (int i = 0; i < pumpsCountColumnThree; i++) {
+            for (int j = 0; j < cisterns.size(); j++) {
+                if (random.nextBoolean() || i == j) {
+                    connectPipe("pu" + (i + 1 + 3), "ci" + (j + 1));
+                }
+            }
+        }
+    }
+
+    private void ensureAllWaterSourcesConnected(int pumpsCountColumnTwo) {
+        for (WaterSource waterSource : waterSources.values()) {
+            if (waterSource.getPipes().isEmpty()) {
+                connectPipe(waterSource.getName(), "pu" + (random.nextInt(pumpsCountColumnTwo) + 1));
+            }
+        }
+    }
+
+    private void ensureAllPumpsConnected(int pumpsCountColumnTwo, int pumpsCountColumnThree) {
+        for (Pump pump : pumps.values()) {
+            if (pump.getPipes().isEmpty()) {
+                connectPipe(pump.getName(), "pu" + (random.nextInt(pumpsCountColumnThree) + 1 + pumpsCountColumnTwo));
+            }
+        }
+    }
+
+    private void ensureAllCisternsConnected(int pumpsCountColumnThree) {
+        for (Cistern cistern : cisterns.values()) {
+            if (cistern.getPipes().isEmpty()) {
+                connectPipe("pu" + (random.nextInt(pumpsCountColumnThree) + 1 + 3), cistern.getName());
+            }
+        }
+    }
+
+    private void connectPipe(String from, String to) {
+        String pipeKey = "pi" + (pipes.size() + 1);
+        Pipe pipe = new Pipe(pipeKey);
+        pipes.put(pipeKey, pipe);
+        if (waterSources.containsKey(from)) {
+            waterSources.get(from).attachPipe(pipe);
+        } else if (pumps.containsKey(from)) {
+            pumps.get(from).attachPipe(pipe);
+            pumps.get(from).setOutput(pipe);
+        }
+        if (pumps.containsKey(to)) {
+            pumps.get(to).attachPipe(pipe);
+            pumps.get(to).setInput(pipe);
+        } else if (cisterns.containsKey(to)) {
+            cisterns.get(to).attachPipe(pipe);
+        }
+    }
+
 
     /**
      * Find the closest field to the given coordinates
@@ -671,117 +676,137 @@ public class Board {
      * @throws Exception if could not calculate the coordinate of the pipe
      */
     public Point calculatePipeCenter(Pipe pipe) throws Exception {
-        Point pipeCoordinate = new Point();
-        // If pipe is attached to 2 attachables
-        if (pipe.getAttachables().size() == 2 && pipe.getAttachables().get(0) != null && pipe.getAttachables().get(1) != null) {
-            // Calculate the middle point of the 2 attachables
-            Point attachable1Coordinate = coordinates.get(pipe.getAttachables().get(0).getName());
-            Point attachable2Coordinate = coordinates.get(pipe.getAttachables().get(1).getName());
-            if (attachable1Coordinate == null || attachable2Coordinate == null)
-                throw new Exception("One of the attachable coordinates is null but it shouldn't be!");
-            pipeCoordinate.x = (attachable1Coordinate.x + attachable2Coordinate.x) / 2;
-            pipeCoordinate.y = (attachable1Coordinate.y + attachable2Coordinate.y) / 2;
-            return pipeCoordinate;
+        ArrayList<Attachable> attachables = pipe.getAttachables();
+
+        if (isAttachedToTwoAttachables(attachables)) {
+            return calculateMiddlePoint(
+                    coordinates.get(attachables.get(0).getName()),
+                    coordinates.get(attachables.get(1).getName())
+            );
         }
 
-        // Find the character who holds the other end of the pipe
-        Character founded_character1 = null;
-        ArrayList<Character> characters = getCharacters();
-        for (Character character : characters) {
-            if (character.getPickedPipe() == pipe) {
-                founded_character1 = character;
-                break;
-            }
+        Character firstCharacter = findCharacterWithPipe(pipe);
+
+        if (isAttachedToOneAttachable(attachables) && firstCharacter != null) {
+            return calculateMiddlePoint(
+                    coordinates.get(attachables.get(0).getName()),
+                    getFieldCoordinate(firstCharacter.getField())
+            );
         }
 
-        // If pipe is attached to 1 attachable and the other end is in 1 character hands
-        if (pipe.getAttachables().size() == 1 && pipe.getAttachables().get(0) != null && founded_character1 != null) {
-            // Calculate the middle point of the attachable and the character
-            Point attachableCoordinate = coordinates.get(pipe.getAttachables().get(0).getName());
-            Point characterCoordinate = getFieldCoordinate(founded_character1.getField());
-            if (attachableCoordinate == null || characterCoordinate == null)
-                throw new Exception("Attachable coordinate or the character coordinate is null!");
+        Character secondCharacter = findCharacterWithPipeExcluding(pipe, firstCharacter);
 
-            // Calculate the middle point of the pipe
-            pipeCoordinate.x = (attachableCoordinate.x + characterCoordinate.x) / 2;
-            pipeCoordinate.y = (attachableCoordinate.y + characterCoordinate.y) / 2;
-            return pipeCoordinate;
+        if (firstCharacter != null && secondCharacter != null) {
+            return calculateMiddlePoint(
+                    getFieldCoordinate(firstCharacter.getField()),
+                    getFieldCoordinate(secondCharacter.getField())
+            );
         }
 
-        // Find the second character who holds the other end of the pipe
-        Character founded_character2 = null;
-        for (Character character : characters) {
-            if (character.getPickedPipe() == pipe && character != founded_character1) {
-                founded_character2 = character;
-                break;
-            }
-        }
-
-        // If pipe is in 2 characters hands
-        if (founded_character1 != null && founded_character2 != null) {
-            // Calculate the middle point of the 2 characters
-            Point character1Coordinate = getFieldCoordinate(founded_character1.getField());
-            Point character2Coordinate = getFieldCoordinate(founded_character2.getField());
-            if (character1Coordinate == null || character2Coordinate == null)
-                throw new Exception("One of the character coordinates is null but it shouldn't be!");
-            pipeCoordinate.x = (character1Coordinate.x + character2Coordinate.x) / 2;
-            pipeCoordinate.y = (character1Coordinate.y + character2Coordinate.y) / 2;
-            return pipeCoordinate;
-        }
-
-        // Throw exception if pipe is not attached to 2 attachables or 1 attachable and 1 character or 2 characters
         throw new Exception("Pipe is not attached to 2 attachables or 1 attachable and 1 character or 2 characters!");
     }
 
-    public ArrayList<Point> calculatePipeEnds(Pipe pipe) throws Exception {
-        Point p1 = new Point(0, 0);
-        Point p2 = new Point(0, 0);
+    private boolean isAttachedToTwoAttachables(ArrayList<Attachable> attachables) {
+        return attachables.size() == 2 && attachables.get(0) != null && attachables.get(1) != null;
+    }
 
-        // Get attachables
+    private boolean isAttachedToOneAttachable(ArrayList<Attachable> attachables) {
+        return attachables.size() == 1 && attachables.get(0) != null;
+    }
+
+    private Point calculateMiddlePoint(Point p1, Point p2) throws Exception {
+        if (p1 == null || p2 == null) {
+            throw new Exception("One of the coordinates is null but it shouldn't be!");
+        }
+        return new Point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2);
+    }
+
+    private Character findCharacterWithPipe(Pipe pipe) {
+        for (Character character : getCharacters()) {
+            if (character.getPickedPipe() == pipe) {
+                return character;
+            }
+        }
+        return null;
+    }
+
+    private Character findCharacterWithPipeExcluding(Pipe pipe, Character excludeCharacter) {
+        for (Character character : getCharacters()) {
+            if (character.getPickedPipe() == pipe && character != excludeCharacter) {
+                return character;
+            }
+        }
+        return null;
+    }
+
+
+    public ArrayList<Point> calculatePipeEnds(Pipe pipe) throws Exception {
+        ArrayList<Point> points = new ArrayList<>();
+
         ArrayList<Attachable> attachables = pipe.getAttachables();
 
-        //ha sima cso
-        if (attachables.size() == 2 && attachables.get(0) != null && attachables.get(1) != null) {
-            p1 = location(attachables.get(0).getName());
-            p2 = location(attachables.get(1).getName());
-        }
-        //ha fel van veve az egyik vege
-        else if (attachables.size() == 1 && attachables.get(0) != null) {
-            p1 = location(attachables.get(0).getName());
-            for (Character character : getCharacters()) {
-                Pipe pickedPipe = character.getPickedPipe();
-                if (pickedPipe != null && pickedPipe.equals(pipe)) {
-                    p2 = getCharacterCoordinate(character);
-                    p2 = new Point(p2.x, (int) (p2.y - Settings.board_character_height() / 1.5));
-                }
-            }
-        }
-        //ha mind2 vege fel van veve
-        else if (pipe.getAttachables().size() == 0) {
-            boolean p1_found = false;
-            for (Character character : getCharacters()) {
-                Pipe pickedPipe = character.getPickedPipe();
-                if (pickedPipe == null) continue;
-                if (pickedPipe.equals(pipe)) {
-                    if (!p1_found) {
-                        p1 = getCharacterCoordinate(character);
-                        p1_found = true;
-                    } else {
-                        p2 = getCharacterCoordinate(character);
-                    }
-                }
-            }
+        if (isSimplePipe(attachables)) {
+            points.add(location(attachables.get(0).getName()));
+            points.add(location(attachables.get(1).getName()));
+        } else if (isOneEndAttached(attachables)) {
+            points.add(location(attachables.get(0).getName()));
+            points.add(findOtherEndForOneAttachment(pipe));
+        } else if (isBothEndsPicked(pipe)) {
+            points.addAll(findEndsForPickedPipe(pipe));
         } else {
             throw new Exception("Pipe is not attached to 2 attachables or 1 attachable and 1 character or 2 characters!");
         }
 
-        // Return the coordinates of the pipe ends
-        ArrayList<Point> points = new ArrayList<>();
-        points.add(p1);
-        points.add(p2);
         return points;
-
     }
+
+    private boolean isSimplePipe(ArrayList<Attachable> attachables) {
+        return attachables.size() == 2 && attachables.get(0) != null && attachables.get(1) != null;
+    }
+
+    private boolean isOneEndAttached(ArrayList<Attachable> attachables) {
+        return attachables.size() == 1 && attachables.get(0) != null;
+    }
+
+    private boolean isBothEndsPicked(Pipe pipe) {
+        return pipe.getAttachables().isEmpty();
+    }
+
+    private Point findOtherEndForOneAttachment(Pipe pipe) throws Exception {
+        for (Character character : getCharacters()) {
+            Pipe pickedPipe = character.getPickedPipe();
+            if (pickedPipe != null && pickedPipe.equals(pipe)) {
+                Point characterCoord = getCharacterCoordinate(character);
+                return new Point(characterCoord.x, (int) (characterCoord.y - Settings.board_character_height() / 1.5));
+            }
+        }
+        throw new Exception("Other end of the pipe is not attached!");
+    }
+
+    private ArrayList<Point> findEndsForPickedPipe(Pipe pipe) throws Exception {
+        ArrayList<Point> points = new ArrayList<>();
+        boolean p1_found = false;
+
+        for (Character character : getCharacters()) {
+            Pipe pickedPipe = character.getPickedPipe();
+            if (pickedPipe != null && pickedPipe.equals(pipe)) {
+                if (!p1_found) {
+                    points.add(getCharacterCoordinate(character));
+                    p1_found = true;
+                } else {
+                    points.add(getCharacterCoordinate(character));
+                    return points;
+                }
+            }
+        }
+
+        if (points.size() < 2) {
+            throw new Exception("Both ends of the pipe are not picked by characters!");
+        }
+
+        return points;
+    }
+
 
     /**
      * Get the coordinate of the given field

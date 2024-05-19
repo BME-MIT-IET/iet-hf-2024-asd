@@ -49,7 +49,7 @@ public class Prototype {
             if (command == null || command.equals("---") || command.equals("-") || command.equals("")) break;
 
             // Run command
-            boolean success = run_command(command.trim().replaceAll("\\s+", " "));
+            boolean success = runCommand(command.trim().replaceAll("\\s+", " "));
 
             // If command was not successful --> increase index
             if (success && mc_next != null) this.mc_index++;
@@ -118,101 +118,164 @@ public class Prototype {
         return true;
     }
 
-    public boolean run_command(String line) {
-
-        boolean success = false;
-
-        // Get command
+    public boolean runCommand(String line) {
         String[] parts = line.split(" ");
         String command = parts[0];
+        boolean success = false;
 
-        // Run command for the next character
         switch (command) {
-            // Move
-            case "m" -> {
-                // Check if parameter is valid
-                if (parts.length < 2 || map.getField(parts[1]) == null) {
-                    IO.writeActionError(command, "Invalid parameter");
-                    break;
-                }
-                // If valid --> move
-                if (mc_next != null) success = mc_next.move(map.getField(parts[1]));
-                else if (sc_next != null) success = sc_next.move(map.getField(parts[1]));
-            }
-            // Set pump input
-            case "i" -> {
-                // Check if parameter is valid
-                if (parts.length < 2 || !IO.isInteger(parts[1])) {
-                    IO.writeActionError(command, "Invalid parameter");
-                    break;
-                }
-                if (mc_next != null) success = mc_next.setPumpInput(Integer.parseInt(parts[1]));
-                else if (sc_next != null) success = sc_next.setPumpInput(Integer.parseInt(parts[1]));
-            }
-            // Set pump output
-            case "o" -> {
-                // Check if parameter is valid
-                if (parts.length < 2 || !IO.isInteger(parts[1])) {
-                    IO.writeActionError(command, "Invalid parameter");
-                    break;
-                }
-                if (mc_next != null) success = mc_next.setPumpOut(Integer.parseInt(parts[1]));
-                else if (sc_next != null) success = sc_next.setPumpOut(Integer.parseInt(parts[1]));
-            }
-            // Break pipe (holey)
-            case "h" -> {
-                if (mc_next != null) success = mc_next.breakPipe();
-                else if (sc_next != null) success = sc_next.breakPipe();
-            }
-            // Fix pipe/pump (only mechanic character)
-            case "f" -> {
-                if (mc_next != null) success = mc_next.fix();
-            }
-            // Pickup pipe
-            case "p" -> {
-                // Check if parameter is valid
-                if (parts.length < 2 || !IO.isInteger(parts[1])) {
-                    IO.writeActionError(command, "Invalid parameter");
-                    break;
-                }
-                if (mc_next != null) success = mc_next.pickupPipe_c(Integer.parseInt(parts[1]));
-                if (sc_next != null) success = sc_next.pickupPipe_c(Integer.parseInt(parts[1]));
-            }
-            // Pickup new pipe from cistern (only mechanic character)
-            case "n" -> {
-                if (mc_next != null) success = mc_next.pickupNewPipe_mc();
-            }
-            // Pickup pump from cistern (only mechanic character)
-            case "b" -> {
-                if (mc_next != null) success = mc_next.pickupPump();
-            }
-            // Attach pipe to pump/cistern
-            case "a" -> {
-                if (mc_next != null) success = mc_next.attachPipeToPump();
-                if (sc_next != null) success = sc_next.attachPipeToPump();
-            }
-            // Place pump on pipe (only mechanic character)
-            case "q" -> {
-                if (mc_next != null) success = mc_next.placePumpToPipe();
-            }
-            // Make pipe slippery (only saboteur character)
-            case "s" -> {
-                if (sc_next != null) success = sc_next.makeSlippery();
-            }
-            // Make pipe sticky
-            case "t" -> {
-                if (mc_next != null) success = mc_next.makeSticky();
-                if (sc_next != null) success = sc_next.makeSticky();
-            }
-            // Pass turn
-            case "x" -> {
-                if (mc_next != null) success = true;
-                if (sc_next != null) success = true;
-            }
+            case "m" -> success = move(parts);
+            case "i" -> success = setPumpInput(parts);
+            case "o" -> success = setPumpOutput(parts);
+            case "h" -> success = breakPipe();
+            case "f" -> success = fix();
+            case "p" -> success = pickupPipe(parts);
+            case "n" -> success = pickupNewPipeFromCistern();
+            case "b" -> success = pickupPumpFromCistern();
+            case "a" -> success = attachPipeToPump();
+            case "q" -> success = placePumpOnPipe();
+            case "s" -> success = makePipeSlippery();
+            case "t" -> success = makePipeSticky();
+            case "x" -> success = true; // Pass turn
+            default -> System.out.println("No action like this");
         }
 
         return success;
     }
+
+    private boolean move(String[] parts) {
+        if (parts.length < 2 || map.getField(parts[1]) == null) {
+            IO.writeActionError("m", "Invalid parameter");
+            return false;
+        }
+
+        if (mc_next != null) {
+            return mc_next.move(map.getField(parts[1]));
+        } else if (sc_next != null) {
+            return sc_next.move(map.getField(parts[1]));
+        }
+
+        return false;
+    }
+
+    private boolean setPumpInput(String[] parts) {
+        if (parts.length < 2 || !IO.isInteger(parts[1])) {
+            IO.writeActionError("i", "Invalid parameter");
+            return false;
+        }
+
+        if (mc_next != null) {
+            return mc_next.setPumpInput(Integer.parseInt(parts[1]));
+        } else if (sc_next != null) {
+            return sc_next.setPumpInput(Integer.parseInt(parts[1]));
+        }
+
+        return false;
+    }
+
+    private boolean setPumpOutput(String[] parts) {
+        if (parts.length < 2 || !IO.isInteger(parts[1])) {
+            IO.writeActionError("o", "Invalid parameter");
+            return false;
+        }
+
+        if (mc_next != null) {
+            return mc_next.setPumpOut(Integer.parseInt(parts[1]));
+        } else if (sc_next != null) {
+            return sc_next.setPumpOut(Integer.parseInt(parts[1]));
+        }
+
+        return false;
+    }
+
+    private boolean breakPipe() {
+        if (mc_next != null) {
+            return mc_next.breakPipe();
+        } else if (sc_next != null) {
+            return sc_next.breakPipe();
+        }
+
+        return false;
+    }
+
+    private boolean fix() {
+        if (mc_next != null) {
+            return mc_next.fix();
+        }
+
+        return false;
+    }
+
+    private boolean pickupPipe(String[] parts) {
+        if (parts.length < 2 || !IO.isInteger(parts[1])) {
+            IO.writeActionError("p", "Invalid parameter");
+            return false;
+        }
+
+        boolean success = false;
+        if (mc_next != null) {
+            success = mc_next.pickupPipe_c(Integer.parseInt(parts[1]));
+        }
+        if (sc_next != null) {
+            success = sc_next.pickupPipe_c(Integer.parseInt(parts[1]));
+        }
+        return success;
+    }
+
+    private boolean pickupNewPipeFromCistern() {
+        if (mc_next != null) {
+            return mc_next.pickupNewPipe_mc();
+        }
+
+        return false;
+    }
+
+    private boolean pickupPumpFromCistern() {
+        if (mc_next != null) {
+            return mc_next.pickupPump();
+        }
+
+        return false;
+    }
+
+    private boolean attachPipeToPump() {
+        boolean success = false;
+        if (mc_next != null) {
+            success = mc_next.attachPipeToPump();
+        }
+        if (sc_next != null) {
+            success = sc_next.attachPipeToPump();
+        }
+        return success;
+    }
+
+    private boolean placePumpOnPipe() {
+        if (mc_next != null) {
+            return mc_next.placePumpToPipe();
+        }
+
+        return false;
+    }
+
+    private boolean makePipeSlippery() {
+        if (sc_next != null) {
+            return sc_next.makeSlippery();
+        }
+
+        return false;
+    }
+
+    private boolean makePipeSticky() {
+        boolean success = false;
+        if (mc_next != null) {
+            success = mc_next.makeSticky();
+        }
+        if (sc_next != null) {
+            success = sc_next.makeSticky();
+        }
+        return success;
+    }
+
 
     private void createCharacters() {
 

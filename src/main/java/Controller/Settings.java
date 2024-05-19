@@ -12,18 +12,18 @@ public class Settings {
     /////////////////
     // GAME SETTINGS
     /////////////////
-    private static final int game_rounds = 20; // -1 for infinite
+    private static final int GAME_ROUNDS = 20; // -1 for infinite
 
-    private static final int points_to_win = 20; // -1 for infinite
+    private static final int POINTS_TO_WIN = 20; // -1 for infinite
 
     public static int game_rounds() {
         if (isTesting) return -1;
-        return game_rounds;
+        return GAME_ROUNDS;
     }
 
     public static int points_to_win() {
         if (isTesting) return -1;
-        return points_to_win;
+        return POINTS_TO_WIN;
     }
 
     public static boolean generate_random_map = false;
@@ -31,17 +31,17 @@ public class Settings {
     //////////////////
     // BOARD SETTINGS
     //////////////////
-    public static final int window_width = 1000;
-    public static final int window_height = 700;
+    public static final int WINDOW_WIDTH = 1000;
+    public static final int WINDOW_HEIGHT = 700;
 
     public static final Color board_color = new Color(231, 224, 210);
 
     public static int board_circles_radius() {
-        return window_height / 10;
+        return WINDOW_HEIGHT / 10;
     }
 
     public static int board_character_height() {
-        return window_height / 10;
+        return WINDOW_HEIGHT / 10;
     }
 
     public static final Color water_source_color = new Color(29, 106, 215);
@@ -65,28 +65,28 @@ public class Settings {
         return randomBetween(pump_roundsUntilBreakdown_MIN, pump_roundsUntilBreakdown_MAX);
     }
 
-    private static final int pump_tankSize = 10;
+    private static final int PUMP_TANK_SIZE = 10;
 
     public static int pump_tankSize() {
         if (isTesting) return 2;
-        return pump_tankSize;
+        return PUMP_TANK_SIZE;
     }
 
     /////////////////
     // PIPE SETTINGS
     /////////////////
-    private static final int pipe_slippery = 5;
+    private static final int PIPE_SLIPPERY = 5;
 
     public static int pipe_slippery() {
         if (isTesting) return 4;
-        return pipe_slippery;
+        return PIPE_SLIPPERY;
     }
 
-    private static final int pipe_sticky = 5;
+    private static final int PIPE_STICKY = 5;
 
     public static int pipe_sticky() {
         if (isTesting) return 4;
-        return pipe_sticky;
+        return PIPE_STICKY;
     }
 
     public static int pipe_breakable() {
