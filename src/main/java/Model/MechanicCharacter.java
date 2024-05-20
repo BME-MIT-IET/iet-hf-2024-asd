@@ -117,13 +117,17 @@ public class MechanicCharacter extends Character {
         return false;
     }
 
+    public boolean makeSlippery() {
+        return false;
+    }
+
     /**
      * A karakter megkapja a csovet a ciszternatol
      *
      * @param p a cso, amit megkap
      * @return Ha sikeresen átvette a pumpát true, egyebkent false
      */
-    public boolean recievePump(Pump p) {
+    public boolean receivePump(Pump p) {
         if (pickedPump == null) {
             pickedPump = p;
             return true;
@@ -141,7 +145,12 @@ public class MechanicCharacter extends Character {
         String fieldName = this.getField() == null ? "-" : this.getField().getName();
         String pickedPipeName = this.pickedPipe == null ? "-" : this.pickedPipe.getName();
         String pickedPumpName = this.pickedPump == null ? "-" : this.pickedPump.getName();
-        return "MechanicCharacter " + this.getName() + " " + fieldName + " " + pickedPipeName + "," + pickedPumpName;
+
+        return "MechanicCharacter\n"
+                + "\tName: " + this.getName() + "\n"
+                + "\tField: " + fieldName + "\n"
+                + "\tPipe in hand: "+ pickedPipeName + "\n"
+                + "\tPump in hand: "+ pickedPumpName + "\n";
     }
 
 

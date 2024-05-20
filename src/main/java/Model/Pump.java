@@ -245,7 +245,7 @@ public class Pump extends Field implements Attachable {
         // If deattach was successful --> try to add pipe to character
         if (success_deattach) {
             // Try to add pipe to character
-            boolean success_recieve = c.recievePipe(pipe_to_pickup);
+            boolean success_recieve = c.receivePipe(pipe_to_pickup);
 
             // If character couldn't recieve pipe --> reattach pipe to pump
             if (!success_recieve) attachPipe(pipe_to_pickup);

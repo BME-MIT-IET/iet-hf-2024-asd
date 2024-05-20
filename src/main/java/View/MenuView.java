@@ -55,7 +55,7 @@ public class MenuView extends JPanel {
 
         // Title
         JLabel titleLabel = new JLabel("SIVATAGI DÍNÓ", SwingConstants.CENTER);
-        titleLabel.setPreferredSize(new Dimension(Settings.window_width, Settings.window_height / 3));
+        titleLabel.setPreferredSize(new Dimension(Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT / 3));
         titleLabel.setFont(new Font("Arial", Font.BOLD, 50));
         titleLabel.setForeground(Color.WHITE);
         this.add(titleLabel, BorderLayout.NORTH);

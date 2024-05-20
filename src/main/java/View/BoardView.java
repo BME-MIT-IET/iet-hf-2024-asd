@@ -20,6 +20,8 @@ public class BoardView extends JPanel {
     private boolean gameOver = false;
     private String winner = "";
 
+    private static final String ACTION = "TimesRoman";
+
     /**
      * A szerelő csapat és a szabotőr csapat pontjai
      */
@@ -212,49 +214,67 @@ public class BoardView extends JPanel {
     }
 
     private void drawPipes(Graphics g) throws Exception {
-        for (Map.Entry<String, Pipe> pipe : board.pipes.entrySet()) {
-            ArrayList<Point> points = board.calculatePipeEnds(pipe.getValue());
-
+        for (Map.Entry<String, Pipe> entry : board.pipes.entrySet()) {
+            Pipe pipe = entry.getValue();
+            ArrayList<Point> points = board.calculatePipeEnds(pipe);
             Point p1 = points.get(0);
             Point p2 = points.get(1);
 
-            // sima cso szine
-            g.setColor(Settings.pipe_color);
+            // Set pipe color
+            setColorBasedOnPipeProperties(g, pipe);
 
-            // csuszos vagy ragados szine
-            if (pipe.getValue().getSticky() > 0) g.setColor(Settings.sticky_pipe_color);
-            if (pipe.getValue().getSlippery() > 0) g.setColor(Settings.slippery_pipe_color);
-
-            //https://www.codejava.net/java-se/graphics/drawing-lines-examples-with-graphics2d
-            // lyukas cso -> szaggatott vonal
-            if (pipe.getValue().getHoley()) {
-                float[] dashingPattern = {10f, 10f};
-                Stroke stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f);
-                Graphics2D g2d = (Graphics2D) g;
-                g2d.setStroke(stroke);
-                g2d.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
-                stroke = new BasicStroke(2f);
-                g2d.setStroke(stroke);
-            }
-            //nem lyukas
-            else {
-                Graphics2D g2 = (Graphics2D) g;
-                int pipesCountInTheSameField = 0;
-                // If more than one pipe is on the same field, draw with wider line
-                for (Pipe otherPipe : board.pipes.values()) {
-                    if (
-                            !pipe.getValue().equals(otherPipe) && // Not the same pipe
-                                    pipe.getValue().getAttachables().size() == 2 && otherPipe.getAttachables().size() == 2 && // Both pipes are connected to two fields
-                                    board.calculatePipeCenter(otherPipe).equals(board.calculatePipeCenter(pipe.getValue())) // Connected to the same field
-                    ) {
-                        pipesCountInTheSameField++;
-                    }
-                }
-                g2.setStroke(new BasicStroke(2 + pipesCountInTheSameField * 2));
-                g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+            // Draw pipe based on properties
+            if (pipe.getHoley()) {
+                drawHoleyPipe(g, p1, p2);
+            } else {
+                drawRegularPipe(g, p1, p2, pipe);
             }
         }
     }
+
+    private void setColorBasedOnPipeProperties(Graphics g, Pipe pipe) {
+        g.setColor(Settings.pipe_color);
+        if (pipe.getSticky() > 0) {
+            g.setColor(Settings.sticky_pipe_color);
+        }
+        if (pipe.getSlippery() > 0) {
+            g.setColor(Settings.slippery_pipe_color);
+        }
+    }
+
+    private void drawHoleyPipe(Graphics g, Point p1, Point p2) {
+        Graphics2D g2d = (Graphics2D) g;
+        float[] dashingPattern = {10f, 10f};
+        Stroke stroke = new BasicStroke(2f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f);
+        g2d.setStroke(stroke);
+        g2d.draw(new Line2D.Double(p1.x, p1.y, p2.x, p2.y));
+        // Reset stroke for non-holey pipes
+        stroke = new BasicStroke(2f);
+        g2d.setStroke(stroke);
+    }
+
+    private void drawRegularPipe(Graphics g, Point p1, Point p2, Pipe pipe) throws Exception {
+        Graphics2D g2 = (Graphics2D) g;
+        int pipesCountInTheSameField = countPipesInSameField(pipe);
+
+        // Determine line width based on the number of pipes in the same field
+        g2.setStroke(new BasicStroke(2 + pipesCountInTheSameField * 2));
+        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+    }
+
+    private int countPipesInSameField(Pipe pipe) throws Exception {
+        int pipesCountInTheSameField = 0;
+        for (Pipe otherPipe : board.pipes.values()) {
+            if (!pipe.equals(otherPipe) &&
+                    pipe.getAttachables().size() == 2 &&
+                    otherPipe.getAttachables().size() == 2 &&
+                    board.calculatePipeCenter(otherPipe).equals(board.calculatePipeCenter(pipe))) {
+                pipesCountInTheSameField++;
+            }
+        }
+        return pipesCountInTheSameField;
+    }
+
 
     private void drawAttachables(Graphics g) throws Exception {
 
@@ -278,7 +298,7 @@ public class BoardView extends JPanel {
                 Point string_pos = new Point(pump_pos.x - fontSize / 3, pump_pos.y + fontSize / 3);
                 // Draw string
                 g.setColor(Color.BLACK);
-                g.setFont(new Font("TimesRoman", Font.PLAIN, fontSize));
+                g.setFont(new Font(ACTION, Font.PLAIN, fontSize));
                 g.drawString("X", string_pos.x, string_pos.y);
             }
 
@@ -445,11 +465,11 @@ public class BoardView extends JPanel {
             } else {
                 g.setColor(Settings.saboteur_color);
             }
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 16));
+            g.setFont(new Font(ACTION, Font.PLAIN, 16));
             g.setFont(g.getFont().deriveFont(Font.BOLD));
         } else {
             g.setColor(Color.BLACK);
-            g.setFont(new Font("TimesRoman", Font.PLAIN, 12));
+            g.setFont(new Font(ACTION, Font.PLAIN, 12));
         }
 
         // Calculate text width
@@ -475,23 +495,23 @@ public class BoardView extends JPanel {
 
 
         g.setColor(Color.RED);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 60));
+        g.setFont(new Font(ACTION, Font.PLAIN, 60));
         g.drawString("GAME OVER!", this.getWidth() / 2 - 180, 50);
 
         // Draw winner name
         g.setColor(Color.white);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.setFont(new Font(ACTION, Font.PLAIN, 20));
         g.drawString("Winner: " + this.winner, 10, this.getHeight() / 2 + 150);
 
         // Draw mechanic and saboteur points
         g.setColor(Color.white);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.setFont(new Font(ACTION, Font.PLAIN, 20));
         g.drawString("Mechanic points: " + this.mechpoints, 10, this.getHeight() / 2 + 180);
         g.drawString("Saboteur points: " + this.sabpoints, 10, this.getHeight() / 2 + 210);
 
         // Draw close message
         g.setColor(Color.white);
-        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.setFont(new Font(ACTION, Font.PLAIN, 20));
         g.drawString("Press enter to close the window", 10, this.getHeight() / 2 + 250);
 
     }
