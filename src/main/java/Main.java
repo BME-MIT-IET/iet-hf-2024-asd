@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         // Skeleton
         //Skeleton skeleton = new Skeleton();
-        //skeleton.runMenuLoop();
+        //skeleton.runMenuLoop();       
 
         // Prototype
         //Prototype prototype = new Prototype();
