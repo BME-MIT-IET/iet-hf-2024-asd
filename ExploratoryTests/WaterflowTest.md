@@ -55,22 +55,19 @@ Megvizsgálom, egy új vízfolyási útvonallal, hogy  a játék logika konziszt
 
 Az eredeti pálya:
 
-![A cartoon of a dragon
-
-Description automatically generated with medium confidence](Aspose.Words.58be4037-715c-49dd-8114-4e60acc045bf.002.png)
+![](Aspose.Words.58be4037-715c-49dd-8114-4e60acc045bf.002.png)
 
 Az új pálya:
 
-![A cartoon of a robot
-
-Description automatically generated with medium confidence](Aspose.Words.58be4037-715c-49dd-8114-4e60acc045bf.003.png)
+![](Aspose.Words.58be4037-715c-49dd-8114-4e60acc045bf.003.png)
 
 - Observation: A szerelők megkapják a megérdemelt pontot.
 - Issues found: A átrakott csőről eltűnt a vízfolyást jelző nyíl.
 
 Bugs and Issues:
 
-` `Két UI hibát találtam, Scenario 5 és 6-ban.
+Két UI hibát találtam, Scenario 5 és 6-ban.
+
 # Debrief
 A vízfolyás helyesen lett implementálva, a játék szabályait nem lettek megszegve egy Scenariovan sem.
 
