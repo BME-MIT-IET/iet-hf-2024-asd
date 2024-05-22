@@ -16,35 +16,35 @@ Start Time: 15:55
 
 End Time: 16:40
 # Exploration notes
-Scenario 1: Jól kezeli-e vajon a játék, ha egyszerre több cső is sticky?
+**Scenario 1: Jól kezeli-e vajon a játék, ha egyszerre több cső is sticky?
 
-Steps Taken: A játékot alapállapotban indítottam, majd minden karakterrel ráléptem egy csőre. Miután minden karakter egy csövön volt, használtam a sticky parancsot mindre.
+- Steps Taken: A játékot alapállapotban indítottam, majd minden karakterrel ráléptem egy csőre. Miután minden karakter egy csövön volt, használtam a sticky parancsot mindre.
 
-Observations: A csövek láthatóan mind sticky-k lettek, azaz barna lett a színük. A rajta álló karakterek nem ragadnak egyből hozzá, de ez az elvárt működés.
+- Observations: A csövek láthatóan mind sticky-k lettek, azaz barna lett a színük. A rajta álló karakterek nem ragadnak egyből hozzá, de ez az elvárt működés.
 
-Scenario 2: Miután visszalép a karakter, hozzáragad-e a csőhöz?
+**Scenario 2: Miután visszalép a karakter, hozzáragad-e a csőhöz?
 
-Steps Taken: Ki- és visszalépek mind a négy karakterrel arra a csőre, amit azzal a karakterrel sticky-ztem be.
+- Steps Taken: Ki- és visszalépek mind a négy karakterrel arra a csőre, amit azzal a karakterrel sticky-ztem be.
 
-Observations: Mind a 4 karakter hozzá ragadt a csőhöz, majd a harmadik körben ismét tudtak mozogni. Ez vizuálisan is helyesen jelent meg, a csövek színe is helyes.
+- Observations: Mind a 4 karakter hozzá ragadt a csőhöz, majd a harmadik körben ismét tudtak mozogni. Ez vizuálisan is helyesen jelent meg, a csövek színe is helyes.
 
-Scenario 3: Minden karakter egy más által beállított csőhöz ragadjon.
+**Scenario 3: Minden karakter egy más által beállított csőhöz ragadjon.
 
-Steps Taken: Ki- és visszalépek mind a négy karakterrel a csövükre, majd beállítom a sticky-t, majd kilépek mindegyik karakterrel, majd mindegyik ragacsos csőre egy különböző karakterrel lépek.
+- Steps Taken: Ki- és visszalépek mind a négy karakterrel a csövükre, majd beállítom a sticky-t, majd kilépek mindegyik karakterrel, majd mindegyik ragacsos csőre egy különböző karakterrel lépek.
 
-Observations: Mind a 4 karakter hozzá ragadt a csőhöz, majd a harmadik körben ismét tudtak mozogni. Ez vizuálisan is helyesen jelent meg, a csövek színe is helyes.
+- Observations: Mind a 4 karakter hozzá ragadt a csőhöz, majd a harmadik körben ismét tudtak mozogni. Ez vizuálisan is helyesen jelent meg, a csövek színe is helyes.
 
-Scenario 4: Minden karakter egy más által beállított csőhöz ragadjon, de minden karakter különböző körben, egymás utáni körben lépjen a csövekre.
+**Scenario 4: Minden karakter egy más által beállított csőhöz ragadjon, de minden karakter különböző körben, egymás utáni körben lépjen a csövekre.
 
-Steps Taken: Egy pumpákból és csövekből álló (4 cső hosszú) körben helyezem el a karaktereket pumpákon, majd rálépek mindegyikkel a körön belül az egyik csőre. A csöveket ragacsossá teszem, de 2 csövet csak egy körrel később. A karakterek ezután egymást követő körökben rálépnek a csövekre.
+- Steps Taken: Egy pumpákból és csövekből álló (4 cső hosszú) körben helyezem el a karaktereket pumpákon, majd rálépek mindegyikkel a körön belül az egyik csőre. A csöveket ragacsossá teszem, de 2 csövet csak egy körrel később. A karakterek ezután egymást követő körökben rálépnek a csövekre.
 
-Observations: Amikor a negyedik karakterrel ráléptem volna a ragacsos csőre, mindhárom (leragadt) karakterről elmúlt a ragadás és az összes csőről eltűnt a ragadás.
+- Observations: Amikor a negyedik karakterrel ráléptem volna a ragacsos csőre, mindhárom (leragadt) karakterről elmúlt a ragadás és az összes csőről eltűnt a ragadás.
 
 Issues Found: Hiba lehet a csövek ragacsosságának kezelésében, mivel csak az első karakternek (és csőnek) kellett volna megszabadulnia a ragadástól.
 
-Bugs and Issues:
+#Bugs and Issues:
 
-` `Bug ID: MultiplePipesSticky01
+Bug ID: MultiplePipesSticky01
 
 Description: A lejárati ideje a ragacsoknak hibásan számolódik.
 
